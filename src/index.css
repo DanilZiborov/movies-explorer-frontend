@@ -6,3 +6,7 @@
 /* Шрифты */
 
 @import url(./vendor/fonts/font.css);
+
+
+@import url(./components/App/App.css);
+@import url(./components/Header/Header.css);

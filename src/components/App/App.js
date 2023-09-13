@@ -1,11 +1,18 @@
 import React from 'react';
 
+import Header from '../Header/Header';
+
 function App() {
 
-  const hello = 'Привет, Жопа!'
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   return (
-    <h1>{hello}</h1>
+    <div className='page'>
+
+      <Header isLoggedIn={isLoggedIn}/>
+
+    </div>
+
   );
 }
 
