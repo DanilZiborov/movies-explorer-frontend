@@ -1,0 +1,50 @@
+.footer {
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
+
+.footer__project-info {
+  margin: 0;
+  margin-bottom: 30px;
+  padding-bottom: 21px;
+  border-bottom: 1px solid #E8E8E8;
+  color: #A0A0A0;
+  text-align: center;
+  font-size: 12px;
+}
+
+.footer__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer__links-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  margin-bottom: 30px;
+  padding: 0;
+  list-style: none;
+}
+
+.footer__link {
+  display: block;
+  margin-bottom: 12px;
+  color: #000;
+  font-size: 13px;
+  text-decoration: none;
+  letter-spacing: -0.72px;
+}
+
+.footer__links-list > li:last-child > a {
+  margin-bottom: 0;
+}
+
+
+.footer__copyright {
+  margin: 0;
+  color: #A0A0A0;
+  font-size: 12px;
+}
