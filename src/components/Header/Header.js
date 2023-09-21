@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-  function Header({isLoggedIn}) {
+  function Header({isLoggedIn, onNavMenuClick}) {
 
 
     return (
@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
             <Link to="/signin"className="header__signin-link">Войти</Link>
           </li>
         </ul>}
-        {isLoggedIn && <button className="header__nav-button"></button>}
+        {isLoggedIn && <button className="header__nav-button" onClick={onNavMenuClick}></button>}
       </header>
     )
   }
