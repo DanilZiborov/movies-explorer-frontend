@@ -2,11 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
   function Header({isLoggedIn, onNavMenuClick}) {
-
-
     return (
       <header className="header">
-        <div className="header__logo"></div>
+        <div className="logo logo_place_header"></div>
         {!isLoggedIn &&  <ul className="header__login">
           <li>
             <Link to="/signup" className="header__signup-link">Регистрация</Link>

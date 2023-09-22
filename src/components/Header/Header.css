@@ -8,7 +8,7 @@
   background-color: #DDDEE3;
 }
 
-.header__logo {
+.logo {
   width: 38px;
   height: 38px;
   background-image: url(../../images/header__logo.svg);

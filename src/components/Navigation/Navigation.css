@@ -10,7 +10,8 @@
 
 .navigation__link {
   display: block;
-  bottom: 46px;
+  padding-bottom: 7px;
+  margin-bottom: 15px;
   color: #000;
   font-size: 18px;
   font-weight: 500;
@@ -20,4 +21,16 @@
 .navigation__link:last-child {
   position: absolute;
   bottom: 46px;
+  margin-bottom: 0;
+}
+
+.navigation__link_active {
+  border-bottom: 2px solid #000;
+
+}
+
+.navigation__profile-icon {
+  width: 100px;
+  height: 32px;
+  background-image: url(../../images/profile-link.svg);
 }

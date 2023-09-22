@@ -1,0 +1,28 @@
+.login {
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  inset: 0;
+
+}
+
+.logo_place_login {
+  margin-top: 56px;
+  margin-bottom: 50px;
+}
+
+.login__title {
+  margin-bottom: 80px;
+
+}
+
+.login__form {
+  padding: 0 30px;
+}
+
+.login__form-label {
+  color: #A0A0A0;
+  font-size: 10px;
+}
