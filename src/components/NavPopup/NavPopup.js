@@ -7,7 +7,7 @@ function NavPopup({onClose}) {
     <div className="nav-popup">
       <div className="nav-popup__overlay"></div>
       <div className="nav-popup__wrapper">
-        <Navigation/>
+        <Navigation closePopup={onClose}/>
         <button className="nav-popup__close-button" onClick={onClose}/>
       </div>
 

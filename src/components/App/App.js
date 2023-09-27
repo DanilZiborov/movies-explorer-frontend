@@ -6,6 +6,9 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import NavPopup from '../NavPopup/NavPopup';
 import Login from '../Login/Login';
+import Register from '../Register/Register';
+import Profile from '../Profile/Profile';
+import Movies from '../Movies/Movies';
 
 import { signinPageData, signupPageData } from '../../utils/constants';
 
@@ -16,14 +19,32 @@ function App() {
 
   const [isNavPopupOpen, setIsNavPopupOpen] = React.useState(false);
 
-  const [isHeaderFooterShown, setIsHeaderFooterShown] = React.useState(true);
+  const [isHeaderShown, setIsHeaderShown] = React.useState(true);
+  const [isFooterShown, setIsFooterShown] = React.useState(true);
 
   let location = useLocation();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (location.pathname === '/signin' || location.pathname === '/signup')
-      setIsHeaderFooterShown(false);
-    else setIsHeaderFooterShown(true);
+    switch (location.pathname) {
+      case '/signin':
+        setIsHeaderShown(false);
+        setIsFooterShown(false);
+        break;
+      case '/signup':
+        setIsHeaderShown(false);
+        setIsFooterShown(false);
+        break;
+      case '/profile':
+        setIsHeaderShown(true);
+        setIsFooterShown(false);
+        break;
+      default:
+        setIsHeaderShown(true);
+        setIsFooterShown(true);
+
+    }
+
   }, [location.pathname])
 
   function openNavPopup() {
@@ -34,15 +55,35 @@ function App() {
     setIsNavPopupOpen(false);
   }
 
+  function handleSignout() {
+    setIsLoggedIn(false);
+    navigate('/', {replace: true});
+    console.log('выход');
+  }
+
+  function handleSignin() {
+    setIsLoggedIn(true);
+    navigate('/movies', {replace: true});
+    console.log('вход');
+  }
+
+  function handleSignup() {
+    navigate('/signin', {replace: true});
+    console.log('рега');
+  }
+
   return (
     <div className='page'>
 
-      {isHeaderFooterShown && <Header isLoggedIn={isLoggedIn} onNavMenuClick={openNavPopup} />}
+      {isHeaderShown && <Header isLoggedIn={isLoggedIn} onNavMenuClick={openNavPopup} location={location} />}
       <Routes>
         <Route path='/' element={<Main />}></Route>
-        <Route path='/signin' element={<Login data={signinPageData} />}></Route>
+        <Route path='/profile' element={<Profile onSignout={handleSignout} />}></Route>
+        <Route path='/signin' element={<Login data={signinPageData} onSubmit={handleSignin} />}></Route>
+        <Route path='/signup' element={<Register data={signupPageData} onSubmit={handleSignup} />}></Route>
+        <Route path='/movies' element={<Movies />}></Route>
       </Routes>
-      { isHeaderFooterShown && <Footer />}
+      {isFooterShown && <Footer />}
 
       {isNavPopupOpen && <NavPopup onClose={closeNavPopup} />}
 

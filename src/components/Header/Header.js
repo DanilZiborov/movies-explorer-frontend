@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-  function Header({isLoggedIn, onNavMenuClick}) {
+  function Header({isLoggedIn, onNavMenuClick, location}) {
     return (
-      <header className="header">
+      <header className= {location.pathname === '/' ? 'header header_main' : 'header'}>
         <div className="logo logo_place_header"></div>
         {!isLoggedIn &&  <ul className="header__login">
           <li>

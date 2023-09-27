@@ -21,4 +21,11 @@
 @import url(./components/NavPopup/NavPopup.css);
 @import url(./components/Navigation/Navigation.css);
 @import url(./components/Login/Login.css);
-
+@import url(./components/Register/\ Register.css);
+@import url(./components/Profile/Profile.css);
+@import url(./components/Movies/Movies.css);
+@import url(./components/SearchForm/SearchForm.css);
+@import url(./components/Preloader/Preloader.css);
+@import url(./components/SavedMovies/SavedMovies.css);
+@import url(./components/MoviesCardlist/MoviesCardlist.css);
+@import url(./components/MoviesCard/MoviesCard.css);
