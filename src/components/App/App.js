@@ -11,6 +11,7 @@ import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
 
 import { signinPageData, signupPageData } from '../../utils/constants';
+import { movies } from '../../utils/constants';
 
 
 function App() {
@@ -81,7 +82,7 @@ function App() {
         <Route path='/profile' element={<Profile onSignout={handleSignout} />}></Route>
         <Route path='/signin' element={<Login data={signinPageData} onSubmit={handleSignin} />}></Route>
         <Route path='/signup' element={<Register data={signupPageData} onSubmit={handleSignup} />}></Route>
-        <Route path='/movies' element={<Movies />}></Route>
+        <Route path='/movies' element={<Movies movies={movies} />}></Route>
       </Routes>
       {isFooterShown && <Footer />}
 
