@@ -1,7 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-  function Header({isLoggedIn, onNavMenuClick, location}) {
+  function Header({isLoggedIn, onNavMenuClick}) {
+
+    const location = useLocation();
+    
     return (
       <header className= {location.pathname === '/' ? 'header header_main' : 'header'}>
         <div className="logo logo_place_header"></div>

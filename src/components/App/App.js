@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -9,6 +9,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
+import NotFound from '../NotFound/NotFound';
 
 import { signinPageData, signupPageData } from '../../utils/constants';
 import { movies } from '../../utils/constants';
@@ -76,13 +77,15 @@ function App() {
   return (
     <div className='page'>
 
-      {isHeaderShown && <Header isLoggedIn={isLoggedIn} onNavMenuClick={openNavPopup} location={location} />}
+      {isHeaderShown && <Header isLoggedIn={isLoggedIn} onNavMenuClick={openNavPopup} />}
       <Routes>
         <Route path='/' element={<Main />}></Route>
         <Route path='/profile' element={<Profile onSignout={handleSignout} />}></Route>
         <Route path='/signin' element={<Login data={signinPageData} onSubmit={handleSignin} />}></Route>
         <Route path='/signup' element={<Register data={signupPageData} onSubmit={handleSignup} />}></Route>
         <Route path='/movies' element={<Movies movies={movies} />}></Route>
+        <Route path='/saved-movies' element={<Movies movies={movies} />}></Route>
+        <Route path="*" element={<NotFound/>} />
       </Routes>
       {isFooterShown && <Footer />}
 
