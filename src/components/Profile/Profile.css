@@ -1,16 +1,28 @@
 .profile {
-  /* max-width: 320px; */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 70px 30px 0;
 }
 
+@media (min-width: 768px) {
+  .profile {
+    width: 410px;
+    margin: 0 auto;
+    padding: 237px 0px 269px;
+  }
+}
+
 .profile__title {
-  margin: 0;
-  margin-bottom: 80px;
+  margin: 0 0 80px 0;
   font-size: 24px;
   font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .profile__title{
+    margin: 0 0 98px 0;
+  }
 }
 
 .profile-form {
@@ -21,30 +33,61 @@
   width: 100%;
 }
 
+@media (min-width: 768px) {
+  .profile-form {
+
+  }
+}
+
 .profile-form__row {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 17px;
+  margin: 0 0 17px 0;
   border-bottom: 1px solid #E8E8E8;
 }
 
+@media (min-width: 768px) {
+  .profile-form__row {
+    margin: 0 0 20px 0;
+  }
+}
+
 .profile-form__row:last-of-type {
-  margin-bottom: 222px;
+  margin: 0 0 335px 0;
   border: none;
+}
+
+@media (min-width: 768px) {
+  .profile-form__row:last-of-type {
+    margin: 0 0 164px 0;
+  }
 }
 
 .profile-form__input-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 4px;
+  margin: 0 0 4px 0;
+}
+
+@media (min-width: 768px) {
+  .profile-form__input-wrapper {
+
+  }
 }
 
 .profile-form__label {
   font-size: 11px;
   font-weight: 500;
 }
+
+@media (min-width: 768px) {
+  .profile-form__label {
+
+  }
+}
+
 
 .profile-form__input {
   width: 70%;
@@ -55,6 +98,12 @@
   outline: none;
   border: none;
   text-align: right;
+}
+
+@media (min-width: 768px) {
+  .profile-form__input {
+
+  }
 }
 
 .profile-form__input::placeholder {
@@ -83,11 +132,23 @@
   font-weight: 400;
 }
 
+@media (min-width: 768px) {
+  .profile-form__error-message {
+
+  }
+}
+
 .profile-form__error-message_place_input {}
 
 .profile-form__error-message_place_submit {
-  margin-bottom: 10px;
+  margin: 0 0 20px ;
   text-align: center;
+}
+
+@media (min-width: 768px) {
+  .profile-form__error-message_place_submit {
+
+  }
 }
 
 .profile-form__submit-button {
@@ -103,14 +164,26 @@
   font-weight: 500;
 }
 
+@media (min-width: 768px) {
+  .profile-form__submit-button {
+
+  }
+}
+
 .profile-form__edit-button {
-  margin-bottom: 16px;
+  margin: 0 0 16px 0;
   text-align: center;
   font-size: 12px;
   font-weight: 400;
   padding: 0;
   border: none;
   background-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .profile-form__edit-button {
+    font-size: 13px;
+  }
 }
 
 .profile-form__logout-button {
@@ -120,4 +193,10 @@
   font-weight: 500;
   background-color: transparent;
   border: none;
+}
+
+@media (min-width: 768px) {
+  .profile-form__logout-button {
+    font-size: 13px;
+  }
 }

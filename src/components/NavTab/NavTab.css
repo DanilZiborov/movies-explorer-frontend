@@ -21,6 +21,15 @@ line-height: 1.45;
 text-decoration: underline;
 }
 
+@media(min-width: 768px) {
+  .nav-tab__link {
+    margin-right: 40px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.23;
+    }
+}
+
 .nav-tab__wrapper > li:last-child > a {
   margin-right: 0;
 }

@@ -1,30 +1,60 @@
 .about-me {
-  padding: 70px 14px 0;
-  margin-bottom: 70px;
+  padding: 70px 14px;
 }
 
+@media (min-width: 768px) {
+  .about-me {
+    padding: 90px 50px;
+  }
+}
+
+
 .about-me__title {
-  margin: 0;
-  margin-bottom: 64px;
-  padding-bottom: 28px;
+  margin: 0 0 64px 0;
+  padding: 0 0 28px 0;
   border-bottom: 1px solid #000;
   font-size: 18px;
   font-weight: 400;
   letter-spacing: -0.72px;
 }
 
+@media (min-width: 768px) {
+  .about-me__title{
+    padding: 0 0 25px 0;
+    font-size: 22px;
+    letter-spacing: -0.88px;
+  }
+}
+
 .about-me__photo {
   max-width: 292px;
   max-height: 352px;
   display: block;
-  margin-bottom: 40px;
+  margin: 0 0 40px 0;
   border-radius: 10px;
 }
+
+@media (min-width: 768px) {
+  .about-me__photo{
+    margin: 0;
+    max-width: 255px;
+    max-height: 307px;
+    order: 2;
+  }
+}
+
+
 
 .about-me__info {
   display: flex;
   flex-direction: column;
 
+
+}
+
+@media (min-width: 768px) {
+  .about-me__info{
+  }
 }
 
 .about-me__wrapper {
@@ -33,28 +63,55 @@
 
 }
 
+@media (min-width: 768px) {
+  .about-me__wrapper{
+    flex-direction: row;
+    column-gap: 49px;
+  }
+}
+
 .about-me__name {
-  margin: 0;
-  margin-bottom: 20px;
+  margin: 0 0 20px 0;
   font-size: 30px;
   font-weight: 400;
   letter-spacing: -1.2px;
 }
 
+@media (min-width: 768px) {
+  .about-me__name{
+    font-size: 40px;
+    letter-spacing: -1.6px;
+    line-height: 1;
+  }
+}
+
 .about-me__job {
-  margin: 0;
-  margin-bottom: 20px;
+  margin: 0 0 20px 0;
   font-size: 11px;
   font-weight: 500;
   line-height: 1.45;
 }
 
+@media (min-width: 768px) {
+  .about-me__job{
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+
 .about-me__text {
-  margin: 0;
-  margin-bottom: 40px;
+  margin: 0 0 40px 0;
   font-size: 11px;
   font-weight: 400;
   line-height: 1.45;
+}
+
+@media (min-width: 768px) {
+  .about-me__text{
+    margin: 0 0 85px 0;
+    font-size: 12px;
+    line-height: 1.5;
+  }
 }
 
 .about-me__link {
@@ -64,4 +121,10 @@
   line-height: 1.45;
   text-decoration: none;
 
+}
+
+@media (min-width: 768px) {
+  .about-me__link{
+
+  }
 }

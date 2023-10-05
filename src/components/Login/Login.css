@@ -1,58 +1,115 @@
 .login {
-  /* max-width: 320px; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
+
+}
+
+@media (min-width: 768px) {
+  .login {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.login__wrapper {
+
+}
+
+@media (min-width: 768px) {
+  .login__wrapper {
+    width: 396px;
+    padding: 232px 0;
+  }
 }
 
 .logo_place_login {
-  margin-top: 56px;
-  margin-bottom: 50px;
+  margin: 56px auto 50px;
+}
+
+@media (min-width: 768px) {
+  .logo_place_login {
+    margin: 0 0 40px 0;
+  }
 }
 
 .login__title {
-  margin: 0;
-  margin-bottom: 80px;
+  margin: 0 0 80px 0;
   font-size: 24px;
   font-weight: 500;
+  text-align: center;
 
+}
+
+@media (min-width: 768px) {
+  .login__title {
+    margin: 0 0 40px 0;
+    text-align: left;
+  }
 }
 
 .user-form {
   box-sizing: border-box;
-  width: 100%;
   padding: 0 30px 30px;
+}
+
+@media (min-width: 768px) {
+  .user-form {
+    padding: 0 0 0;
+  }
 }
 
 .user-form__row {
   display: flex;
   flex-direction: column;
-  margin-bottom: 8px;
+  margin: 0 0 11px 0;
 
+}
+
+@media (min-width: 768px) {
+  .user-form__row  {
+    margin: 0 0 12px 0;
+  }
 }
 
 .user-form__row:last-of-type {
-  margin-bottom: 222px;
+  margin: 0 0 201px 0;
 }
+
+@media (min-width: 768px) {
+  .user-form__row:last-of-type  {
+    margin: 0 0 114px 0;
+  }
+}
+
+
 
 .user-form__label {
   color: #A0A0A0;
   font-size: 10px;
-  margin-bottom: 5px;
+  margin: 0 0 5px 0;
+}
+
+@media (min-width: 768px) {
+  .user-form__label {
+
+  }
 }
 
 .user-form__input {
   width: 100%;
-  padding: 0;
-  padding-bottom: 10px;
-  margin-bottom: 4px;
+  padding: 0 0 11px 0;
+  margin: 0 0 4px 0;
   color: #000;
   font-size: 14px;
   font-weight: 500;
   border: none;
   border-bottom: 1px solid #E8E8E8;
   outline: none;
+}
+
+@media (min-width: 768px) {
+  .user-form__input {
+
+  }
 }
 
 .user-form__input:focus {
@@ -74,17 +131,32 @@
   font-weight: 400;
 }
 
+@media (min-width: 768px) {
+  .user-form__error-message {
+
+  }
+}
+
 .user-form__error-message_place_input {}
 
 .user-form__error-message_place_submit {
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
   text-align: center;
 }
+
+@media (min-width: 768px) {
+  .user-form__error-message_place_submit {
+
+  }
+}
+
+
 
 .user-form__submit-button {
   width: 100%;
   min-height: 45px;
   padding: 0;
+  margin: 0 0 14px 0;
   background-color: #3456F3;
   border: none;
   border-radius: 3px;
@@ -95,10 +167,24 @@
 
 }
 
+@media (min-width: 768px) {
+  .user-form__submit-button {
+    font-size: 14px;
+    margin: 0 0 18px 0;
+  }
+}
+
 .user-form__button-subtitle {
+  margin: 0;
   color: #A0A0A0;
   text-align: center;
   font-size: 12px;
+}
+
+@media (min-width: 768px) {
+  .user-form__button-subtitle {
+    font-size: 14px;
+  }
 }
 
 .user-form__button-subtitle-link {
@@ -107,4 +193,10 @@
   text-align: center;
   font-size: 12px;
   text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .user-form__button-subtitle-link {
+    font-size: 14px;
+  }
 }

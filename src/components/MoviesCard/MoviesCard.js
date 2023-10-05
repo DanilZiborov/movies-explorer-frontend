@@ -32,7 +32,7 @@ function MoviesCard({ movie }) {
     <article className="movie-card">
       <img className="movie-card__image" src={movie.image.movieImagePath} alt={movie.name} />
       <div className="movie-card__wrapper">
-        <p className="movie-card__name">{movie.name}</p>
+        <p className="movie-card__title">{movie.name}</p>
         { isSavedMoviesPath && <button className="movie-card__delete-button" onClick={handleDeleteMovie}></button>}
         {!isSavedMoviesPath && <button className={isMovieSaved ? 'movie-card__save-button movie-card__save-button_active' : 'movie-card__save-button'} onClick={handleSaveMovie}></button>}
 

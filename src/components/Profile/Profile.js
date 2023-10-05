@@ -48,7 +48,7 @@ function Profile({onSignout}) {
         </div>
         <div className="profile-form__row">
           <div className="profile-form__input-wrapper">
-            <label htmlFor="email" className="profile-form__label">Почта</label>
+            <label htmlFor="email" className="profile-form__label">E-mail</label>
             <input className="profile-form__input" type="email" name="email" id="email" onChange={handleChange} placeholder={'danilz081997@gmail.com'} readOnly={isEditorModeActive ? false : true}></input>
           </div>
           <p className="profile-form__error-message profile-form__error-message_place_input">Здесь будут ошибки валидатора</p>

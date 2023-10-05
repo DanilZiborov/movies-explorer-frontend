@@ -75,19 +75,19 @@ export const movies = [
     duration: '1ч07м'
   },
 
-  {
-    image: {movieImagePath},
-    name: '33 слова о дизайне',
-    isLiked: false,
-    duration: '1ч08м'
-  },
+  // {
+  //   image: {movieImagePath},
+  //   name: '33 слова о дизайне',
+  //   isLiked: false,
+  //   duration: '1ч08м'
+  // },
 
-  {
-    image: {movieImagePath},
-    name: '33 слова о дизайне',
-    isLiked: false,
-    duration: '1ч09м'
-  }
+  // {
+  //   image: {movieImagePath},
+  //   name: '33 слова о дизайне',
+  //   isLiked: false,
+  //   duration: '1ч09м'
+  // }
 
 ]
 
