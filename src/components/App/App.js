@@ -17,7 +17,7 @@ import { movies } from '../../utils/constants';
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
 
   const [isNavPopupOpen, setIsNavPopupOpen] = React.useState(false);
 
@@ -59,39 +59,41 @@ function App() {
 
   function handleSignout() {
     setIsLoggedIn(false);
-    navigate('/', {replace: true});
+    navigate('/', { replace: true });
     console.log('выход');
   }
 
   function handleSignin() {
     setIsLoggedIn(true);
-    navigate('/movies', {replace: true});
+    navigate('/movies', { replace: true });
     console.log('вход');
   }
 
   function handleSignup() {
-    navigate('/signin', {replace: true});
+    navigate('/signin', { replace: true });
     console.log('рега');
   }
 
   return (
     <div className='page'>
+      <div className='page__wrapper'>
 
-      {isHeaderShown && <Header isLoggedIn={isLoggedIn} onNavMenuClick={openNavPopup} />}
-      <Routes>
-        <Route path='/' element={<Main />}></Route>
-        <Route path='/profile' element={<Profile onSignout={handleSignout} />}></Route>
-        <Route path='/signin' element={<Login data={signinPageData} onSubmit={handleSignin} />}></Route>
-        <Route path='/signup' element={<Register data={signupPageData} onSubmit={handleSignup} />}></Route>
-        <Route path='/movies' element={<Movies movies={movies} />}></Route>
-        <Route path='/saved-movies' element={<Movies movies={movies} />}></Route>
-        <Route path="*" element={<NotFound/>} />
-      </Routes>
-      {isFooterShown && <Footer />}
+        {isHeaderShown && <Header isLoggedIn={isLoggedIn} onNavMenuClick={openNavPopup} />}
+        <Routes>
+          <Route path='/' element={<Main />}></Route>
+          <Route path='/profile' element={<Profile onSignout={handleSignout} />}></Route>
+          <Route path='/signin' element={<Login data={signinPageData} onSubmit={handleSignin} />}></Route>
+          <Route path='/signup' element={<Register data={signupPageData} onSubmit={handleSignup} />}></Route>
+          <Route path='/movies' element={<Movies movies={movies} />}></Route>
+          <Route path='/saved-movies' element={<Movies movies={movies} />}></Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        {isFooterShown && <Footer />}
 
-      {isNavPopupOpen && <NavPopup onClose={closeNavPopup} />}
+        {isNavPopupOpen && <NavPopup onClose={closeNavPopup} />}
 
 
+      </div>
     </div>
 
   );

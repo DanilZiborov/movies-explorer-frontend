@@ -35,6 +35,9 @@ function Profile({onSignout}) {
     disableEditorMode();
   }
 
+  const initialName = 'Даня';
+  const initialEmail = 'danilz081997@gmail.com';
+
   return (
     <section className="profile">
       <h2 className="profile__title">Привет, {username}!</h2>
@@ -42,14 +45,14 @@ function Profile({onSignout}) {
         <div className="profile-form__row">
           <div className="profile-form__input-wrapper">
             <label htmlFor="username" className="profile-form__label">Имя</label>
-            <input className="profile-form__input" type="text " name="username" id="username" onChange={handleChange} placeholder={'Даня'} readOnly={isEditorModeActive ? false : true} ></input>
+            <input className="profile-form__input" type="text " name="username" id="username" onChange={handleChange} readOnly={isEditorModeActive ? false : true} defaultValue='Даня' ></input>
           </div>
           <p className="profile-form__error-message profile-form__error-message_place_input">Здесь будут ошибки валидатора</p>
         </div>
         <div className="profile-form__row">
           <div className="profile-form__input-wrapper">
             <label htmlFor="email" className="profile-form__label">E-mail</label>
-            <input className="profile-form__input" type="email" name="email" id="email" onChange={handleChange} placeholder={'danilz081997@gmail.com'} readOnly={isEditorModeActive ? false : true}></input>
+            <input className="profile-form__input" type="email" name="email" id="email" onChange={handleChange} readOnly={isEditorModeActive ? false : true} defaultValue='danil@yandex.com' ></input>
           </div>
           <p className="profile-form__error-message profile-form__error-message_place_input">Здесь будут ошибки валидатора</p>
         </div>

@@ -10,6 +10,13 @@
   }
 }
 
+@media (min-width: 1280px) {
+  .portfolio{
+    padding: 0 70px 104px;
+
+  }
+}
+
 .portfolio__title {
   margin: 0 0 40px 0;
   color: #A0A0A0;
@@ -63,6 +70,14 @@
   }
 }
 
+@media (min-width: 1280px) {
+  .portfolio__link{
+    font-size: 30px;
+    line-height: 1.66;
+    letter-spacing: -1.2px;
+  }
+}
+
 .portfolio__arrow {
   margin: 0;
   font-family: Inter;
@@ -73,5 +88,12 @@
 @media (min-width: 768px) {
   .portfolio__arrow{
     font-size: 28px;
+  }
+}
+
+@media (min-width: 768px) {
+  .portfolio__arrow{
+    font-size: 30px;
+    line-height: 1;
   }
 }

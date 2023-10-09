@@ -1,8 +1,9 @@
 import React from "react";
-
+import { useLocation } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardlist({ movies }) {
+  const location = useLocation();
   return (
     <div className="movies__cardlist">
       <div className="movies__cardlist-grid">
@@ -10,7 +11,7 @@ function MoviesCardlist({ movies }) {
           (<MoviesCard movie={movie} key={index} />)
         ))}
       </div>
-      <button className="movies__cardlist-button">Ещё</button>
+      {location.pathname === '/movies' && <button className="movies__cardlist-button">Ещё</button>}
     </div>
   );
 }

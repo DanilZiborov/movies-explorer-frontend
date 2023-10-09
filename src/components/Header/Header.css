@@ -5,6 +5,7 @@
   align-items: center;
   padding: 0 14px;
   margin: 0;
+  background-color: #FAFAFA;
 }
 
 @media (min-width: 768px) {
@@ -13,7 +14,13 @@
   }
 }
 
-.header_main {
+@media (min-width: 1280px) {
+  .header {
+    padding: 0 70px;
+  }
+}
+
+.header_bg-color-main {
   background-color: #DDDEE3;
 }
 
@@ -23,8 +30,10 @@
   background-image: url(../../images/header__logo.svg);
 }
 
-@media (min-width: 768px) {
-  .logo {
+@media (min-width: 1280px) {
+  .logo_place_header {
+    margin: 0 45px 0 0;
+    flex-shrink: 0;
 
   }
 }
@@ -55,6 +64,12 @@
   }
 }
 
+@media (min-width: 1280px) {
+  .header__signup-link {
+
+  }
+}
+
 .header__signin-link {
   box-sizing: border-box;
   display: block;
@@ -80,6 +95,12 @@
   }
 }
 
+@media (min-width: 1280px) {
+  .header__signin-link {
+
+  }
+}
+
 .header__nav-button {
   padding: 0;
   width: 40px;
@@ -96,5 +117,22 @@
   .header__nav-button {
     width: 44px;
     height: 44px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .header__nav-button {
+    display: none ;
+  }
+}
+
+.header__nav-wrapper {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .header__nav-wrapper {
+    display: block;
+    width: 100%;
   }
 }

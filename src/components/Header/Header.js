@@ -1,13 +1,18 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import Navigation from "../Navigation/Navigation";
 
   function Header({isLoggedIn, onNavMenuClick}) {
 
     const location = useLocation();
-    
+
+
+
+
+
     return (
-      <header className= {location.pathname === '/' ? 'header header_main' : 'header'}>
-        <div className="logo logo_place_header"></div>
+      <header className= {location.pathname === '/' ? 'header header_bg-color-main' : 'header'}>
+        <Link to="/" className="logo logo_place_header" />
         {!isLoggedIn &&  <ul className="header__login">
           <li>
             <Link to="/signup" className="header__signup-link">Регистрация</Link>
@@ -17,6 +22,7 @@ import { Link, useLocation } from "react-router-dom";
           </li>
         </ul>}
         {isLoggedIn && <button className="header__nav-button" onClick={onNavMenuClick}></button>}
+        {isLoggedIn && <div className="header__nav-wrapper"><Navigation/></div>}
       </header>
     )
   }

@@ -13,6 +13,11 @@
     }
 }
 
+@media (min-width: 1280px) {
+  .promo {
+    background-position: 50% 40%;
+    }
+}
 
 .promo__title {
 margin: 0;
@@ -30,6 +35,14 @@ letter-spacing: -1.24px;
     font-size: 50px;
     line-height: 1.16;
     letter-spacing: -2px;
+    }
+}
+
+@media (min-width: 1280px) {
+  .promo__title {
+    max-width: 66%;
+    margin: 0 auto;
+    padding: 184px 19px 224px;
     }
 }
 

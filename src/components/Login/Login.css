@@ -21,6 +21,12 @@
   }
 }
 
+@media (min-width: 768px) {
+  .login__wrapper {
+    padding: 70px 0;
+  }
+}
+
 .logo_place_login {
   margin: 56px auto 50px;
 }
@@ -104,6 +110,7 @@
   border: none;
   border-bottom: 1px solid #E8E8E8;
   outline: none;
+  background-color: inherit;
 }
 
 @media (min-width: 768px) {

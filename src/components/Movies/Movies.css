@@ -8,3 +8,9 @@
     padding: 80px 30px 100px;
   }
 }
+
+@media (min-width: 1280px) {
+  .movies {
+    padding: 71px 70px 80px;
+  }
+}

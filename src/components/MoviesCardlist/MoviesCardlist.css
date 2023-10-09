@@ -8,6 +8,12 @@
   }
 }
 
+@media (min-width: 1280px) {
+  .movies__cardlist {
+    padding: 80px 0 0;
+  }
+}
+
 .movies__cardlist-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -21,6 +27,13 @@
   .movies__cardlist-grid {
     grid-template-columns: repeat(auto-fill, 339px);
     gap: 36px 30px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .movies__cardlist-grid {
+    grid-template-columns: repeat(auto-fill, 270px);
+    gap: 32px 20px;
   }
 }
 

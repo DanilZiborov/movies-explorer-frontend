@@ -9,6 +9,13 @@
   }
 }
 
+@media (min-width: 1280px) {
+  .footer{
+    padding: 79px 70px 20px;
+  }
+}
+
+
 .footer__project-info {
   margin: 0 0 30px 0;
   padding: 0 0 21px 0;
@@ -88,7 +95,6 @@
 
 .footer__copyright {
   margin: 0;
-  color: #A0A0A0;
   font-size: 12px;
   font-feature-settings: 'clig' off, 'liga' off;
 }
