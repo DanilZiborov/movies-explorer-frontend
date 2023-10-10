@@ -6,7 +6,6 @@
   position: absolute;
   inset: 0;
   padding: 144px 10px 0;
-
 }
 
 @media (min-width: 768px) {
@@ -30,67 +29,52 @@
   align-items: center;
 }
 
-@media (min-width: 768px) {
-  .navigation__links-wrapper {
-
-  }
-}
-
 @media (min-width: 1280px) {
   .navigation__links-wrapper {
     flex-direction: row;
   }
 }
 
-  .navigation__links-wrapper > .navigation__link:last-child {
-    padding: 0;
-    margin: 0;
-  }
-
-
 .navigation__link {
   display: block;
-  padding: 0 0 7px 0;
-  margin: 0 0 21px 0;
+  padding: 0 0 8px;
+  margin: 0 0 19px;
   color: #000;
   font-size: 18px;
   font-weight: 500;
   text-decoration: none;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.navigation__link:hover {
+  transform: scale(1.07);
+}
+
+.navigation__link:active {
+  transition: all .05s;
+  transform: scale(1);
+}
+
+.navigation__links-wrapper>.navigation__link:last-child {
+  padding: 0;
+  margin: 0;
 }
 
 @media (min-width: 768px) {
   .navigation__link {
-    margin: 0 0 22px 0;
+    margin: 0 0 22px;
+    padding: 0 0 7px;
   }
 }
 
 @media (min-width: 1280px) {
   .navigation__link {
-    margin: 0 16px 0 0;
+    margin: 0 16px 0;
     padding: 0;
     font-size: 13px;
     font-weight: 400;
     line-height: 1.38;
-  }
-}
-
-.navigation__link:last-child {
-  margin: 0;
-  padding: 0 0 46px;
-}
-
-@media (min-width: 768px) {
-  .navigation__link:last-child {
-    padding: 0 0 90px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .navigation__link:last-child {
-    position: static;
-    margin: 0;
-    padding: 0;
-
   }
 }
 
@@ -100,30 +84,38 @@
   }
 }
 
-@media (min-width: 1280px) {
-  .navigation__link:first-child {
-    margin: 0;
-  }
-}
-
 .navigation__link_active {
   border-bottom: 2px solid #000;
-
 }
 
 @media (min-width: 1280px) {
   .navigation__link_active {
     border: none;
     font-weight: 500;
-
   }
 }
 
-
-.navigation__profile-icon {
+.navigation__link_profile {
+  display: block;
   width: 100px;
   height: 32px;
   background-image: url(../../images/profile-link.svg);
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0 0 46px;
+}
+
+@media (min-width: 768px) {
+  .navigation__link_profile {
+    padding: 0 0 90px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .navigation__link_profile {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .logo_place_navigation {
@@ -137,12 +129,8 @@
   }
 }
 
-
 @media (min-width: 1280px) {
   .navigation__link-text {
     display: none;
   }
 }
-
-
-

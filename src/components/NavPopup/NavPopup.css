@@ -14,12 +14,6 @@
 
 }
 
-@media (min-width: 768px) {
-  .nav-popup {
-
-  }
-}
-
 @media (min-width: 1280px) {
   .nav-popup {
     display: none;
@@ -33,18 +27,11 @@
   opacity: .6;
 }
 
-@media (min-width: 768px) {
-  .nav-popup__overlay {
-
-  }
-}
-
 .nav-popup__wrapper {
   background-color: #FAFAFA;
   position: absolute;
   inset: 0;
   animation: nav-popup-animation .25s ease-in;
-
 }
 
 @media (min-width: 768px) {
@@ -56,7 +43,6 @@
     width: 520px;
   }
 }
-
 
 .nav-popup__close-button {
   position: absolute;

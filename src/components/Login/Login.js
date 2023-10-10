@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 
 function Login({ data, children, onSubmit }) {
@@ -27,7 +27,7 @@ function Login({ data, children, onSubmit }) {
   return (
     <section className="login">
       <div className="login__wrapper">
-        <div className="logo logo_place_login"></div>
+        <Link to="/" className="logo logo_place_login"/>
         <h2 className="login__title">{data.title}</h2>
         <form className="user-form" action="#" onSubmit={handleSubmit} noValidate>
           {children}

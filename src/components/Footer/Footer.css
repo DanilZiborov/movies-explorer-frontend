@@ -15,10 +15,9 @@
   }
 }
 
-
 .footer__project-info {
-  margin: 0 0 30px 0;
-  padding: 0 0 21px 0;
+  margin: 0 0 30px;
+  padding: 0 0 21px;
   border-bottom: 1px solid #E8E8E8;
   color: #A0A0A0;
   text-align: center;
@@ -27,7 +26,7 @@
 
 @media (min-width: 768px) {
   .footer__project-info{
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     font-size: 13px;
   }
 }
@@ -50,7 +49,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 0 30px 0;
+  margin: 0 0 30px;
   padding: 0;
   list-style: none;
 }
@@ -66,7 +65,7 @@
 
 .footer__link {
   display: block;
-  margin: 0 0 12px 0;
+  margin: 0 0 12px;
   color: #000;
   font-size: 13px;
   text-decoration: none;
@@ -86,13 +85,6 @@
   margin: 0;
 }
 
-@media (min-width: 768px) {
-  .footer__links-list > li:last-child > a {
-
-  }
-}
-
-
 .footer__copyright {
   margin: 0;
   font-size: 12px;
@@ -104,5 +96,3 @@
     font-size: 13px;
   }
 }
-
-

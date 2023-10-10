@@ -6,13 +6,6 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
-
-}
-
-@media (min-width: 768px) {
-  .not-found{
-
-  }
 }
 
 .not-found__error-code {
@@ -23,8 +16,7 @@
 }
 
 @media (min-width: 768px) {
-  .not-found__error-code  {
-    padding: 42px 0 0;
+  .not-found__error-code {
     font-size: 140px;
   }
 }
@@ -36,7 +28,7 @@
 }
 
 @media (min-width: 768px) {
-  .not-found__text  {
+  .not-found__text {
     font-size: 16px;
   }
 }
@@ -56,6 +48,12 @@
 @media (min-width: 768px) {
   .not-found__back-button {
     font-size: 14px;
+    bottom: 222px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .not-found__back-button {
     bottom: 168px;
   }
 }

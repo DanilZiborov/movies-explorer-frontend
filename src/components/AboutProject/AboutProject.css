@@ -5,19 +5,18 @@
 @media(min-width: 768px) {
   .about-project {
     padding: 90px 50px;
-    }
+  }
 }
 
 @media(min-width: 1280px) {
   .about-project {
     padding: 110px 70px;
-    }
+  }
 }
 
-
 .about-project__title {
-  margin: 0 0 63px 0;
-  padding: 0 0 28px 0;
+  margin: 0 0 63px;
+  padding: 0 0 28px;
   border-bottom: 1px solid #000;
   font-size: 18px;
   font-weight: 400;
@@ -26,17 +25,17 @@
 
 @media(min-width: 768px) {
   .about-project__title {
-    margin: 0 0 70px 0;
-    padding: 0 0 23px 0;
+    margin: 0 0 70px;
+    padding: 0 0 23px;
     font-size: 22px;
     letter-spacing: -0.88px;
-    }
+  }
 }
 
 .about-project__wrapper {
   display: flex;
   flex-direction: column;
-  margin: 0 0 60px 0;
+  margin: 0 0 60px;
   row-gap: 60px;
 }
 
@@ -45,32 +44,26 @@
     flex-direction: row;
     justify-content: space-between;
     column-gap: 36px;
-    margin: 0 0 93px 0;
-    }
+    margin: 0 0 93px;
+  }
 }
 
 @media(min-width: 1280px) {
   .about-project__wrapper {
     column-gap: 47px;
-    margin: 0 0 113px 0;
-    }
+    margin: 0 0 113px;
+  }
 }
 
-
-.about-project__article {
-
-}
-
+/*
 @media(min-width: 768px) {
   .about-project__article {
     margin: 0 0 0 0;
-    }
-}
-
-.about-project__article:last-child {}
+  }
+} */
 
 .about-project__article-title {
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   font-size: 18px;
   font-weight: 400;
   letter-spacing: -0.72px;
@@ -78,12 +71,11 @@
 
 @media(min-width: 768px) {
   .about-project__article-title {
-    margin: 0 0 26px 0;
+    margin: 0 0 26px;
     font-size: 20px;
     letter-spacing: -0.8px;
-    }
+  }
 }
-
 
 .about-project__article-text {
   margin: 0;
@@ -95,33 +87,33 @@
   .about-project__article-text {
     font-size: 12px;
     line-height: 1.5
-    }
+  }
 }
 
 @media(min-width: 1280px) {
   .about-project__article-text {
     font-size: 14px;
     line-height: 1.42
-    }
+  }
 }
 
 .about-project__scheme {
   display: grid;
   align-items: center;
-  grid-template-columns: 32.21% 1fr;
+  grid-template-columns: 35.5% 1fr;
 }
 
 @media(min-width: 768px) {
   .about-project__scheme {
     grid-template-columns: 20.95% 1fr;
     row-gap: 5px;
-    }
+  }
 }
 
 @media(min-width: 1280px) {
   .about-project__scheme {
     grid-template-columns: 19.95% 1fr;
-    }
+  }
 }
 
 .about-project__scheme-item {
@@ -136,7 +128,7 @@
   .about-project__scheme-item {
     font-size: 14px;
     padding: 10px 0;
-    }
+  }
 }
 
 .about-project__scheme-item_type_week {

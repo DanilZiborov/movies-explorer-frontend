@@ -4,18 +4,14 @@
   min-height: 100vh;
 }
 
-
 .page__wrapper {
   width: 100%;
   position: relative;
-  /* width: 1280px; */
-  /* width: 768px; */
-  /* width: 320px; */
 }
 
 @media (min-width: 1280px) {
   .page__wrapper {
     max-width: 1280px;
-    /* margin: 0 auto; */
+    margin: 0 auto;
   }
 }
