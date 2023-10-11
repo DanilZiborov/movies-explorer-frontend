@@ -6,10 +6,6 @@ import Navigation from "../Navigation/Navigation";
 
     const location = useLocation();
 
-
-
-
-
     return (
       <header className= {location.pathname === '/' ? 'header header_bg-color-main' : 'header'}>
         <Link to="/" className="logo logo_place_header" />

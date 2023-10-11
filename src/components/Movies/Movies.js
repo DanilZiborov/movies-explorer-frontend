@@ -22,8 +22,6 @@ function Movies({movies}) {
       setIsPreloaderShown(false);
       console.log(res);
     }))
-
-
   }
 
 
