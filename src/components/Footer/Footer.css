@@ -71,7 +71,12 @@
   text-decoration: none;
   letter-spacing: -0.72px;
   font-feature-settings: 'clig' off, 'liga' off;
+  transition: all .3s;
 }
+
+.footer__link:hover {
+  opacity: .7;
+  }
 
 @media (min-width: 768px) {
   .footer__link {

@@ -55,6 +55,7 @@
   background-color: transparent;
   background-position: center;
   border: none;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {

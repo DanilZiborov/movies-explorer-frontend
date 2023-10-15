@@ -79,15 +79,17 @@ function App() {
       <div className='page__wrapper'>
 
         {isHeaderShown && <Header isLoggedIn={isLoggedIn} onNavMenuClick={openNavPopup} />}
-        <Routes>
-          <Route path='/' element={<Main />}></Route>
-          <Route path='/profile' element={<Profile onSignout={handleSignout} />}></Route>
-          <Route path='/signin' element={<Login data={signinPageData} onSubmit={handleSignin} />}></Route>
-          <Route path='/signup' element={<Register data={signupPageData} onSubmit={handleSignup} />}></Route>
-          <Route path='/movies' element={<Movies movies={movies} />}></Route>
-          <Route path='/saved-movies' element={<Movies movies={movies} />}></Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <main>
+          <Routes>
+            <Route path='/' element={<Main />}></Route>
+            <Route path='/profile' element={<Profile onSignout={handleSignout} />}></Route>
+            <Route path='/signin' element={<Login data={signinPageData} onSubmit={handleSignin} />}></Route>
+            <Route path='/signup' element={<Register data={signupPageData} onSubmit={handleSignup} />}></Route>
+            <Route path='/movies' element={<Movies movies={movies} />}></Route>
+            <Route path='/saved-movies' element={<Movies movies={movies} />}></Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
         {isFooterShown && <Footer />}
 
         {isNavPopupOpen && <NavPopup onClose={closeNavPopup} />}

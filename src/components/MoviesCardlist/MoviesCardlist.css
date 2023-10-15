@@ -54,12 +54,7 @@
 }
 
 .movies__cardlist-button:hover {
-  transform: scale(1.07);
-}
-
-.movies__cardlist-button:active {
-  transition: all .05s;
-  transform: scale(1);
+  opacity: .8;
 }
 
 @media (min-width: 768px) {

@@ -33,12 +33,12 @@ function Login({ data, children, onSubmit }) {
           {children}
           <div className="user-form__row">
             <label htmlFor="email" className="user-form__label">E-mail</label>
-            <input className="user-form__input" type="email" name="email" id="email" onChange={handleChange}></input>
+            <input className="user-form__input" type="email" name="email" id="email" onChange={handleChange} placeholder="Введите email" required></input>
             <p className="user-form__error-message user-form__error-message_place_input">Здесь будут ошибки валидатора</p>
           </div>
           <div className="user-form__row">
             <label className="user-form__label" htmlFor="password">Пароль</label>
-            <input minLength={5} className="user-form__input" type="password" name="password" id="password" onChange={handleChange}></input>
+            <input className="user-form__input" type="password" name="password" id="password" onChange={handleChange} placeholder="Введите пароль" minLength={8} maxLength={30} required></input>
             <p className="user-form__error-message user-form__error-message_place_input">Здесь будут ошибки валидатора</p>
           </div>
             <p className="user-form__error-message user-form__error-message_place_submit" id="server-error">Здесь будут ошибки сервера</p>

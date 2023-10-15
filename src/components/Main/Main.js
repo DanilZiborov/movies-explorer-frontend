@@ -9,7 +9,7 @@ import Portfolio from "../Portfolio/Portfolio";
 
 function Main() {
   return (
-    <main className="main">
+    <div className="main">
       <Promo/>
       <NavTab/>
       <AboutProject/>
@@ -17,7 +17,7 @@ function Main() {
       <AboutMe/>
       <Portfolio/>
 
-    </main>
+    </div>
   )
 }
 

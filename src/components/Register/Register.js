@@ -20,7 +20,7 @@ function Register({data, onSubmit}) {
     <Login data={data} onSubmit={onSubmit} >
       <div className="user-form__row">
         <label htmlFor="username" className="user-form__label">Имя</label>
-        <input className="user-form__input" type="text " name="username" id="username" onChange={handleChange}></input>
+        <input className="user-form__input" type="text " name="username" id="username" onChange={handleChange} placeholder="Введите имя" required maxLength={30}></input>
         <p className="user-form__error-message user-form__error-message_place_input">Здесь будут ошибки валидатора</p>
       </div>
     </Login>

@@ -156,5 +156,10 @@
   font-weight: 500;
   line-height: 1.45;
   text-decoration: none;
+  transition: all .3s;
 }
+
+.about-me__link:hover {
+  opacity: .7;
+  }
 

@@ -4,18 +4,18 @@ function Portfolio() {
   return(
     <section className="portfolio">
       <h2 className="portfolio__title">Портфолио</h2>
-      <div className="portfolio__item">
-        <a className="portfolio__link" href="#">Статичный сайт</a>
+      <a className="portfolio__link" href="https://mestoprojectdvz.nomoreparties.co/" target="blank" >
+        <p className="portfolio__item">Статичный сайт</p>
         <p className="portfolio__arrow">↗</p>
-      </div>
-      <div className="portfolio__item">
-        <a className="portfolio__link" href="#">Адаптивный сайт</a>
+      </a>
+      <a className="portfolio__link" href="https://mestoprojectdvz.nomoreparties.co/" target="blank">
+        <p className="portfolio__item">Адаптивный сайт</p>
         <p className="portfolio__arrow">↗</p>
-      </div>
-      <div className="portfolio__item">
-        <a className="portfolio__link" href="#">Одностраничное приложение</a>
+      </a>
+      <a className="portfolio__link" href="https://mestoprojectdvz.nomoreparties.co/" target="blank">
+        <p className="portfolio__item">Одностраничное приложение</p>
         <p className="portfolio__arrow">↗</p>
-      </div>
+      </a>
     </section>
   )
 }

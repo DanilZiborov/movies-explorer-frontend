@@ -48,12 +48,7 @@
 }
 
 .navigation__link:hover {
-  transform: scale(1.07);
-}
-
-.navigation__link:active {
-  transition: all .05s;
-  transform: scale(1);
+  opacity: .7;
 }
 
 .navigation__links-wrapper>.navigation__link:last-child {

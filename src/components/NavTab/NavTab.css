@@ -19,7 +19,14 @@ font-size: 11px;
 font-weight: 500;
 line-height: 1.45;
 text-decoration: underline;
+transition: all .3s;
 }
+
+.nav-tab__link:hover {
+  opacity: .7;
+  }
+
+
 
 @media(min-width: 768px) {
   .nav-tab__link {

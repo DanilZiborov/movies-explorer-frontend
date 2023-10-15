@@ -150,12 +150,7 @@
 }
 
 .profile-form__submit-button:hover {
-  transform: scale(1.07);
-}
-
-.profile-form__submit-button:active {
-  transition: all .05s;
-  transform: scale(1);
+  opacity: .8;
 }
 
 .profile-form__edit-button {
@@ -171,15 +166,8 @@
 }
 
 .profile-form__edit-button:hover {
-  transform: scale(1.07);
+  opacity: .7;
 }
-
-.profile-form__edit-button:active {
-  transition: all .05s;
-  transform: scale(1);
-}
-
-
 
 @media (min-width: 768px) {
   .profile-form__edit-button {
@@ -199,12 +187,7 @@
 }
 
 .profile-form__logout-button:hover {
-  transform: scale(1.07);
-}
-
-.profile-form__logout-button:active {
-  transition: all .05s;
-  transform: scale(1);
+  opacity: .7;
 }
 
 @media (min-width: 768px) {

@@ -32,14 +32,6 @@
   transition: all 0.4s;
 }
 
-.logo:hover {
-  transform: scale(1.07);
-}
-
-.logo:active {
-  transition: all .05s;
-  transform: scale(1);
-}
 
 @media (min-width: 1280px) {
   .logo_place_header {
@@ -70,13 +62,9 @@
 }
 
 .header__signup-link:hover {
-  transform: scale(1.07);
+  opacity: .8;
 }
 
-.header__signup-link:active {
-  transition: all .05s;
-  transform: scale(1);
-}
 
 @media (min-width: 768px) {
   .header__signup-link {
@@ -104,12 +92,7 @@
 }
 
 .header__signin-link:hover {
-  transform: scale(1.07);
-}
-
-.header__signin-link:active {
-  transition: all .05s;
-  transform: scale(1);
+  opacity: .7;
 }
 
 @media (min-width: 768px) {
