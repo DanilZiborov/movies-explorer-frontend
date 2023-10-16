@@ -1,0 +1,16 @@
+.movies {
+  padding: 80px 10px;
+  background-color: #FAFAFA;
+}
+
+@media (min-width: 768px) {
+  .movies {
+    padding: 80px 30px 100px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .movies {
+    padding: 71px 70px 80px;
+  }
+}

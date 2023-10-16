@@ -1,0 +1,131 @@
+.techs {
+  padding: 63px 18px 70px;
+  background-color: #F5F5F5;
+}
+
+@media (min-width: 768px) {
+  .techs {
+    padding: 81px 50px 90px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .techs {
+    padding: 91px 70px 100px;
+  }
+}
+
+.techs__title {
+  margin: 0 0 60px;
+  padding: 0 0 28px;
+  border-bottom: 1px solid #000;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.72px;
+}
+
+@media (min-width: 768px) {
+  .techs__title {
+    margin: 0 0 80px;
+    padding: 0 0 23px;
+    font-size: 22px;
+    letter-spacing: -0.88px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .techs__title {
+    margin: 0 0 90px;
+  }
+}
+
+.techs__subtitle {
+  margin: 0;
+  margin-bottom: 24px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -1.2px;
+}
+
+@media (min-width: 768px) {
+  .techs__subtitle {
+    margin-bottom: 22px;
+    font-size: 50px;
+    letter-spacing: -2px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .techs__subtitle {
+    margin-bottom: 27px;
+  }
+}
+
+.techs__text {
+  margin: 0 0 53px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.44px;
+}
+
+@media (min-width: 768px) {
+  .techs__text {
+    max-width: 60%;
+    margin: 0 auto 85px;
+    font-size: 12px;
+    line-height: 1.5;
+    letter-spacing: -0.48px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .techs__text {
+    max-width: 40%;
+    margin: 0 auto 100px;
+    font-size: 14px;
+    line-height: 1.42;
+    letter-spacing: -0.56px;
+  }
+}
+
+.techs__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 84px);
+  grid-gap: 10px;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .techs__grid {
+    box-sizing: border-box;
+    padding: 0 10px;
+    grid-template-columns: repeat(7, 84px);
+  }
+}
+
+@media (min-width: 1280px) {
+  .techs__grid {
+    grid-template-columns: repeat(7, 90px);
+  }
+}
+
+.techs__grid-item {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 21px 0;
+  text-align: center;
+  background-color: #E8E8E8;
+  border-radius: 10px;
+  font-size: 12px;
+  letter-spacing: -0.48px;
+}
+
+@media (min-width: 1280px) {
+  .techs__grid-item {
+    font-size: 14px;
+    letter-spacing: -0.56px;
+  }
+}

@@ -1,0 +1,131 @@
+.navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  inset: 0;
+  padding: 144px 10px 0;
+}
+
+@media (min-width: 768px) {
+  .navigation {
+    padding: 159px 90px 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .navigation {
+    flex-direction: row;
+    align-items: center;
+    position: static;
+    padding: 0;
+  }
+}
+
+.navigation__links-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 1280px) {
+  .navigation__links-wrapper {
+    flex-direction: row;
+  }
+}
+
+.navigation__link {
+  display: block;
+  padding: 0 0 8px;
+  margin: 0 0 19px;
+  color: #000;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.navigation__link:hover {
+  opacity: .7;
+}
+
+.navigation__links-wrapper>.navigation__link:last-child {
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .navigation__link {
+    margin: 0 0 22px;
+    padding: 0 0 7px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .navigation__link {
+    margin: 0 16px 0;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.38;
+  }
+}
+
+@media (min-width: 1280px) {
+  .navigation__link:first-child {
+    display: none;
+  }
+}
+
+.navigation__link_active {
+  border-bottom: 2px solid #000;
+}
+
+@media (min-width: 1280px) {
+  .navigation__link_active {
+    border: none;
+    font-weight: 500;
+  }
+}
+
+.navigation__link_profile {
+  display: block;
+  width: 100px;
+  height: 32px;
+  background-image: url(../../images/profile-link.svg);
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0 0 46px;
+}
+
+@media (min-width: 768px) {
+  .navigation__link_profile {
+    padding: 0 0 90px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .navigation__link_profile {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.logo_place_navigation {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .logo_place_navigation {
+    display: block;
+    margin: 0 44px 0 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .navigation__link-text {
+    display: none;
+  }
+}
