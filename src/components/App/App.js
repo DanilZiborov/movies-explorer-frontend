@@ -12,7 +12,8 @@ import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
 
 import { signinPageData, signupPageData } from '../../utils/constants';
-import { movies } from '../../utils/constants';
+import SavedMovies from '../SavedMovies/SavedMovies';
+// import { movies } from '../../utils/constants';
 
 
 function App() {
@@ -48,6 +49,8 @@ function App() {
     }
 
   }, [location.pathname])
+
+
 
   function openNavPopup() {
     setIsNavPopupOpen(true);
@@ -85,8 +88,8 @@ function App() {
             <Route path='/profile' element={<Profile onSignout={handleSignout} />}></Route>
             <Route path='/signin' element={<Login data={signinPageData} onSubmit={handleSignin} />}></Route>
             <Route path='/signup' element={<Register data={signupPageData} onSubmit={handleSignup} />}></Route>
-            <Route path='/movies' element={<Movies movies={movies} />}></Route>
-            <Route path='/saved-movies' element={<Movies movies={movies} />}></Route>
+            <Route path='/movies' element={<Movies />}></Route>
+            <Route path='/saved-movies' element={<SavedMovies />}></Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

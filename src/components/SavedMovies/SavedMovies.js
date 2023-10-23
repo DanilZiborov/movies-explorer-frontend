@@ -1,9 +1,16 @@
 import React from "react";
 
-import Movies from "../Movies/Movies";
+import MoviesCardlist from "../MoviesCardlist/MoviesCardlist";
+import SearchForm from "../SearchForm/SearchForm";
 
 function SavedMovies() {
-  <Movies/>
+  return(
+    <section className="movies">
+    <SearchForm/>
+    {/* {isPreloaderShown && <Preloader />} */}
+    <MoviesCardlist />
+  </section>
+  )
 }
 
 export default SavedMovies;

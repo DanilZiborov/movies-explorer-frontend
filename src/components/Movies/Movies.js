@@ -4,33 +4,103 @@ import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardlist from "../MoviesCardlist/MoviesCardlist";
 
+import moviesApi from "../../utils/MoviesApi";
 
-function Movies({movies}) {
-  const [isShortFilms, setIsShortFilms] = React.useState(false);
-  const [isPreloaderShown, setIsPreloaderShown] = React.useState(false);
 
-  function toggleShortFilmsFilter() {
-    setIsShortFilms(!isShortFilms);
+function Movies() {
+
+  const [movies, setMovies] = React.useState([]);
+  const [isCheckboxChecked, setIsCheckboxChecked] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  const [filteredMovies, setFilteredMovies] = React.useState([]);
+
+  React.useEffect(
+    () => {
+      console.log('сработал юзеффект локал сторадж');
+      if (localStorage.getItem('movies')) {
+        setMovies(JSON.parse(localStorage.getItem('movies')));
+        setIsCheckboxChecked(JSON.parse(localStorage.getItem('isShort')));
+        setSearchQuery(localStorage.getItem('query'));
+      }
+    }
+    , []);
+
+  React.useEffect(
+    () => {
+
+      if (movies.length === 0)
+        return;
+
+      console.log('сработал юзеффект фильтра');
+      filterMovies();
+    }
+    , [movies, isCheckboxChecked, searchQuery]);
+
+
+  function onQueryChange(e) {
+    setSearchQuery(e.target.value);
+    localStorage.setItem('query', e.target.value);
+    console.log(e.target.value);
   }
 
-  function handleSubmit() {
-    setIsPreloaderShown(true);
-    new Promise((resolve, reject) => {
-      setTimeout(() => resolve('промис готов'), 1500)
+  function onCheckboxChange() {
+    if (isCheckboxChecked) {
+      setIsCheckboxChecked(false);
+      localStorage.setItem('isShort', false);
+    }
+    else {
+      setIsCheckboxChecked(true);
+      localStorage.setItem('isShort', true);
+    }
+
+  }
+
+  function searchMovies() {
+
+    if (movies.length === 0) {
+      moviesApi.getMovies()
+        .then((res) => {
+          console.log('запрос к битфильмс');
+          setMovies(res);
+          localStorage.setItem('movies', JSON.stringify(movies));
+          // возможно, нужна какая-то логика защиты от попадания в сторадж пустой строки query
+          // (помимо валидации)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }
+
+  function filterMovies() {
+
+    if (movies.length === 0)
+      return;
+
+    console.log('фильтр начал работу');
+
+    let filteredMovies = movies;
+
+    if (isCheckboxChecked) {
+      filteredMovies = movies.filter(movie => {
+        return Number(movie.duration) <= 40;
+      })
+    }
+
+    filteredMovies = filteredMovies.filter(movie => {
+        return movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) || movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase());
     })
-    .then((res => {
-      setIsPreloaderShown(false);
-      console.log(res);
-    }))
-  }
 
+    setFilteredMovies(filteredMovies);
+  }
 
   return (
     <section className="movies">
-      <SearchForm onCheckboxChange={toggleShortFilmsFilter} isChecked={isShortFilms} onSubmit={handleSubmit} />
-      {isPreloaderShown && <Preloader />}
-      <MoviesCardlist movies={movies} />
-      </section>
+      <SearchForm onCheckboxChange={onCheckboxChange} isCheckboxChecked={isCheckboxChecked} searchQuery={searchQuery} onQueryChange={onQueryChange} onSubmit={searchMovies} />
+      {/* {isPreloaderShown && <Preloader />} */}
+      <MoviesCardlist movies={filteredMovies} />
+    </section>
 
 
   )
