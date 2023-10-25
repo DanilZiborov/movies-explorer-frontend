@@ -13,7 +13,13 @@ function Movies() {
   const [isCheckboxChecked, setIsCheckboxChecked] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  const [filteredMovies, setFilteredMovies] = React.useState([]);
+  // const [filteredMovies, setFilteredMovies] = React.useState([]);
+
+  const [renderedMovies, setRenderedMovies] = React.useState([]);
+
+  const [moviesCounter, setMoviesCounter] = React.useState(0);
+  const [additionalMovies, setAdditionalMovies] = React.useState(0);
+  const [initialMovies, setInitialMovies] = React.useState(0);
 
   React.useEffect(
     () => {
@@ -26,17 +32,27 @@ function Movies() {
     }
     , []);
 
+  React.useEffect(() => {
+    console.log('сработал юзэффект window');
+
+    window.addEventListener('resize', () => {
+      setTimeout(() => {
+        checkWindowWidth();
+      }, 200);
+    })
+
+    checkWindowWidth();
+
+  }, []);
+
   React.useEffect(
     () => {
-
-      if (movies.length === 0)
+      if (initialMovies === 0 || movies.length === 0)
         return;
 
       console.log('сработал юзеффект фильтра');
       filterMovies();
-    }
-    , [movies, isCheckboxChecked, searchQuery]);
-
+    }, [movies, isCheckboxChecked, searchQuery, initialMovies]);
 
   function onQueryChange(e) {
     setSearchQuery(e.target.value);
@@ -63,7 +79,7 @@ function Movies() {
         .then((res) => {
           console.log('запрос к битфильмс');
           setMovies(res);
-          localStorage.setItem('movies', JSON.stringify(movies));
+          localStorage.setItem('movies', JSON.stringify(res));
           // возможно, нужна какая-то логика защиты от попадания в сторадж пустой строки query
           // (помимо валидации)
         })
@@ -75,31 +91,56 @@ function Movies() {
 
   function filterMovies() {
 
-    if (movies.length === 0)
-      return;
-
     console.log('фильтр начал работу');
 
     let filteredMovies = movies;
 
     if (isCheckboxChecked) {
-      filteredMovies = movies.filter(movie => {
+      filteredMovies = filteredMovies.filter(movie => {
         return Number(movie.duration) <= 40;
       })
     }
 
     filteredMovies = filteredMovies.filter(movie => {
-        return movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) || movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase());
+      return movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) || movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase());
     })
 
-    setFilteredMovies(filteredMovies);
+    filteredMovies = filteredMovies.filter((movie, index )=> {
+      return index < (initialMovies);
+    })
+
+    setRenderedMovies(filteredMovies);
+
+    console.log(movies.length);
+    console.log(filteredMovies.length)
+
+  }
+
+  function checkWindowWidth() {
+    if (window.innerWidth < 768) {
+      setInitialMovies(5);
+      setAdditionalMovies(2);
+      console.log('установлены параметры до 768');
+    }
+
+    if (window.innerWidth < 1280 && window.innerWidth >= 768) {
+      setInitialMovies(8);
+      setAdditionalMovies(2);
+      console.log('установлены параметры 768 - 1280');
+    }
+
+    if (window.innerWidth >= 1280) {
+      setInitialMovies(16);
+      setAdditionalMovies(4);
+      console.log('установлены параметры 1280+');
+    }
   }
 
   return (
     <section className="movies">
       <SearchForm onCheckboxChange={onCheckboxChange} isCheckboxChecked={isCheckboxChecked} searchQuery={searchQuery} onQueryChange={onQueryChange} onSubmit={searchMovies} />
       {/* {isPreloaderShown && <Preloader />} */}
-      <MoviesCardlist movies={filteredMovies} />
+      <MoviesCardlist renderedMovies={renderedMovies} />
     </section>
 
 
