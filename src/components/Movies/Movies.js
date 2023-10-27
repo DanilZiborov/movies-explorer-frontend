@@ -6,24 +6,28 @@ import MoviesCardlist from "../MoviesCardlist/MoviesCardlist";
 
 import moviesApi from "../../utils/MoviesApi";
 
+import { moviesCardlistMessages } from "../../utils/constants";
+import MoviesFilter from "../../utils/MoviesFilter";
+import mainApi from "../../utils/MainApi";
 
 function Movies() {
 
   const [movies, setMovies] = React.useState([]);
+  const [renderedMovies, setRenderedMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
+
   const [isCheckboxChecked, setIsCheckboxChecked] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  // const [filteredMovies, setFilteredMovies] = React.useState([]);
-
-  const [renderedMovies, setRenderedMovies] = React.useState([]);
-
-  const [moviesCounter, setMoviesCounter] = React.useState(0);
   const [additionalMovies, setAdditionalMovies] = React.useState(0);
   const [initialMovies, setInitialMovies] = React.useState(0);
 
+  const [isAddButtonShown, setIsAddButtonShown] = React.useState(false);
+  const [messageText, setMessageText] = React.useState('');
+  const [isPreloaderShown, setIsPreloaderShown] = React.useState(false);
+
   React.useEffect(
     () => {
-      console.log('сработал юзеффект локал сторадж');
       if (localStorage.getItem('movies')) {
         setMovies(JSON.parse(localStorage.getItem('movies')));
         setIsCheckboxChecked(JSON.parse(localStorage.getItem('isShort')));
@@ -32,16 +36,25 @@ function Movies() {
     }
     , []);
 
-  React.useEffect(() => {
-    console.log('сработал юзэффект window');
+  React.useEffect(
+    () => {
+      const token = localStorage.getItem('jwt');
+      mainApi.getSavedMovies(token)
+        .then((res) => {
+          setSavedMovies(res.data);
+        })
+        .catch(err => console.log(err));
+    }, []);
 
-    window.addEventListener('resize', () => {
-      setTimeout(() => {
-        checkWindowWidth();
-      }, 200);
-    })
+
+  React.useEffect(() => {
+    window.addEventListener('resize', checkWindowWidth);
 
     checkWindowWidth();
+
+    return () => {
+      window.removeEventListener('resize', checkWindowWidth);
+    }
 
   }, []);
 
@@ -50,14 +63,76 @@ function Movies() {
       if (initialMovies === 0 || movies.length === 0)
         return;
 
-      console.log('сработал юзеффект фильтра');
       filterMovies();
     }, [movies, isCheckboxChecked, searchQuery, initialMovies]);
+
+  function searchMovies() {
+    if (movies.length === 0) {
+      setIsPreloaderShown(true);
+      moviesApi.getMovies()
+        .then((res) => {
+          console.log('запрос к битфильмс');
+          setMovies(res);
+          localStorage.setItem('movies', JSON.stringify(res));
+          setMessageText('');
+        })
+        .catch((err) => {
+          console.log(err);
+          setMessageText(moviesCardlistMessages.serverError);
+        })
+        .finally(() => {
+          setIsPreloaderShown(false);
+        })
+    }
+  }
+
+  function filterMovies() {
+
+    const filter = new MoviesFilter({ movies, savedMovies, isCheckboxChecked, searchQuery, initialMovies });
+    filter.filterByCheckbox();
+    filter.filterBySearchQuery();
+
+    if (filter.movies.length === 0)
+      setMessageText(moviesCardlistMessages.notFound);
+    else setMessageText('');
+
+    if (filter.movies.length === 0 || filter.movies.length <= initialMovies)
+      setIsAddButtonShown(false);
+    else setIsAddButtonShown(true);
+
+    filter.filterByInitialQuantity();
+    filter.markSavedMovies();
+
+    setRenderedMovies(filter.movies);
+  }
+
+  function checkWindowWidth() {
+    setTimeout(() => {
+      if (window.innerWidth < 768) {
+        setInitialMovies(5);
+        setAdditionalMovies(2);
+      }
+
+      if (window.innerWidth < 1137 && window.innerWidth >= 768) {
+        setInitialMovies(8);
+        setAdditionalMovies(2);
+      }
+
+      if (window.innerWidth < 1280 && window.innerWidth >= 1137) {
+        setInitialMovies(9);
+        setAdditionalMovies(3);
+      }
+
+      if (window.innerWidth >= 1280) {
+        setInitialMovies(16);
+        setAdditionalMovies(4);
+      }
+    }, 200)
+  }
 
   function onQueryChange(e) {
     setSearchQuery(e.target.value);
     localStorage.setItem('query', e.target.value);
-    console.log(e.target.value);
   }
 
   function onCheckboxChange() {
@@ -69,78 +144,70 @@ function Movies() {
       setIsCheckboxChecked(true);
       localStorage.setItem('isShort', true);
     }
-
   }
 
-  function searchMovies() {
+  function addMovies() {
+    setInitialMovies(initialMovies + additionalMovies);
+  }
 
-    if (movies.length === 0) {
-      moviesApi.getMovies()
-        .then((res) => {
-          console.log('запрос к битфильмс');
-          setMovies(res);
-          localStorage.setItem('movies', JSON.stringify(res));
-          // возможно, нужна какая-то логика защиты от попадания в сторадж пустой строки query
-          // (помимо валидации)
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+  function handleSaveMovie(movie) {
+    const movieData = {
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `https://api.nomoreparties.co${movie.image.url}`,
+      trailerLink: movie.trailerLink,
+      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
     }
-  }
+    const token = localStorage.getItem('jwt');
 
-  function filterMovies() {
-
-    console.log('фильтр начал работу');
-
-    let filteredMovies = movies;
-
-    if (isCheckboxChecked) {
-      filteredMovies = filteredMovies.filter(movie => {
-        return Number(movie.duration) <= 40;
+    mainApi.saveMovie(movieData, token)
+      .then((res) => {
+        mainApi.getSavedMovies(token)
+          .then((res) => { setSavedMovies(res.data) });
       })
-    }
+      .catch((err) => { console.log(err) });
+  }
 
-    filteredMovies = filteredMovies.filter(movie => {
-      return movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) || movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase());
-    })
+  function handleDeleteMovie(movie) {
 
-    filteredMovies = filteredMovies.filter((movie, index )=> {
-      return index < (initialMovies);
-    })
-
-    setRenderedMovies(filteredMovies);
-
-    console.log(movies.length);
-    console.log(filteredMovies.length)
+    const targetMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id);
+    const token = localStorage.getItem('jwt');
+    mainApi.deleteMovie(targetMovie._id, token)
+      .then((res) => {
+        console.log(res);
+        mainApi.getSavedMovies(token)
+          .then((res) => { setSavedMovies(res.data) });
+      })
+      .catch((err) => { console.log(err) });
 
   }
 
-  function checkWindowWidth() {
-    if (window.innerWidth < 768) {
-      setInitialMovies(5);
-      setAdditionalMovies(2);
-      console.log('установлены параметры до 768');
-    }
 
-    if (window.innerWidth < 1280 && window.innerWidth >= 768) {
-      setInitialMovies(8);
-      setAdditionalMovies(2);
-      console.log('установлены параметры 768 - 1280');
-    }
-
-    if (window.innerWidth >= 1280) {
-      setInitialMovies(16);
-      setAdditionalMovies(4);
-      console.log('установлены параметры 1280+');
-    }
-  }
 
   return (
     <section className="movies">
-      <SearchForm onCheckboxChange={onCheckboxChange} isCheckboxChecked={isCheckboxChecked} searchQuery={searchQuery} onQueryChange={onQueryChange} onSubmit={searchMovies} />
-      {/* {isPreloaderShown && <Preloader />} */}
-      <MoviesCardlist renderedMovies={renderedMovies} />
+      <SearchForm
+        onCheckboxChange={onCheckboxChange}
+        isCheckboxChecked={isCheckboxChecked}
+        searchQuery={searchQuery}
+        onQueryChange={onQueryChange}
+        onSubmit={searchMovies} />
+
+      {isPreloaderShown && <Preloader />}
+      
+      <MoviesCardlist
+        renderedMovies={renderedMovies}
+        onAddButtonClick={addMovies}
+        isAddButtonShown={isAddButtonShown}
+        messageText={messageText}
+        onSaveMovie={handleSaveMovie}
+        onDeleteMovie={handleDeleteMovie} />
     </section>
 
 

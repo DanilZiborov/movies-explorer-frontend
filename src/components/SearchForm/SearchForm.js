@@ -1,6 +1,6 @@
 import React from "react";
 
-function SearchForm({onCheckboxChange, isCheckboxChecked, searchQuery, onQueryChange, onSubmit}) {
+function SearchForm({onCheckboxChange, isCheckboxChecked, searchQuery, onQueryChange, onSubmit=()=>{}}) {
 
   function handleQueryChange(e) {
     onQueryChange(e);

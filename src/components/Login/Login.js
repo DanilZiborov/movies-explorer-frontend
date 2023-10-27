@@ -3,11 +3,12 @@ import React from "react";
 import { Link} from "react-router-dom";
 
 
-function Login({ data, children, onSubmit }) {
+function Login({ data, children, onSubmit, onChange=()=>{}, isRegisterSuccess}) {
 
   const [formValue, setFormValue] = React.useState({ email: '', password: '' });
 
   function handleChange(e) {
+    onChange(e);
     const { name, value } = e.target;
 
     setFormValue({
@@ -15,12 +16,11 @@ function Login({ data, children, onSubmit }) {
       [name]: value
     });
 
-    console.log(formValue);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit();
+    onSubmit(formValue);
   }
 
 
@@ -41,7 +41,8 @@ function Login({ data, children, onSubmit }) {
             <input className="user-form__input" type="password" name="password" id="password" onChange={handleChange} placeholder="Введите пароль" minLength={8} maxLength={30} required></input>
             <p className="user-form__error-message user-form__error-message_place_input">Здесь будут ошибки валидатора</p>
           </div>
-            <p className="user-form__error-message user-form__error-message_place_submit" id="server-error">Здесь будут ошибки сервера</p>
+            <p className="user-form__error-message user-form__error-message_place_submit user-form__error-message_success user-form__error-message_transparent" id="server-error"></p>
+            <p className = {isRegisterSuccess ? "user-form__success-message user-form__success-message_visible" : "user-form__success-message"}>Вы успешно зарегистрировались</p>
             <button className="user-form__submit-button" type="submit">{data.buttonText}</button>
             <p className="user-form__button-subtitle">{data.buttonSubtitle} <Link className="user-form__button-subtitle-link" to={data.buttonSubtitleLink}>{data.buttonSubtitleLinkText}</Link></p>
         </form>

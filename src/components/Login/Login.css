@@ -127,6 +127,23 @@
   text-align: center;
 }
 
+.user-form__success-message {
+  opacity: 0;
+  margin: 0 0 10px;
+  text-align: center;
+  opacity: 0;
+  color: #53cc2f;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  transition: all 1s;
+
+}
+
+.user-form__success-message_visible {
+  opacity: 1;
+
+}
+
 .user-form__submit-button {
   width: 100%;
   min-height: 45px;
