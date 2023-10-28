@@ -40,9 +40,6 @@ function SavedMovies() {
 
   React.useEffect(
     () => {
-      if (savedMovies.length === 0)
-        return;
-
       filterMovies();
     }, [savedMovies, isCheckboxChecked, searchQuery]);
 
@@ -76,13 +73,24 @@ function SavedMovies() {
     }
   }
 
+  function handleDeleteMovie(movie) {
 
+    const token = localStorage.getItem('jwt');
+    mainApi.deleteMovie(movie._id, token)
+      .then((res) => {
+        console.log(res);
+        mainApi.getSavedMovies(token)
+          .then((res) => { setSavedMovies(res.data) });
+      })
+      .catch((err) => { console.log(err) });
+
+  }
 
   return(
     <section className="movies">
     <SearchForm onCheckboxChange={onCheckboxChange} isCheckboxChecked={isCheckboxChecked} searchQuery={searchQuery} onQueryChange={onQueryChange} />
     {isPreloaderShown && <Preloader />}
-    <MoviesCardlist renderedMovies={filteredMovies} isAddButtonShown={false} messageText={messageText}  />
+    <MoviesCardlist renderedMovies={filteredMovies} isAddButtonShown={false} messageText={messageText} onDeleteMovie={handleDeleteMovie}  />
   </section>
   )
 }

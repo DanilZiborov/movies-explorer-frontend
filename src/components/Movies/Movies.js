@@ -200,7 +200,7 @@ function Movies() {
         onSubmit={searchMovies} />
 
       {isPreloaderShown && <Preloader />}
-      
+
       <MoviesCardlist
         renderedMovies={renderedMovies}
         onAddButtonClick={addMovies}
