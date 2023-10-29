@@ -56,7 +56,6 @@ function SavedMovies() {
     setFilteredMovies(filter.movies);
   }
 
-
   function onQueryChange(e) {
     setSearchQuery(e.target.value);
     localStorage.setItem('query', e.target.value);

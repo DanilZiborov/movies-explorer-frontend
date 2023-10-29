@@ -9,10 +9,9 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
 import ProtectedRouteElement from '../../utils/ProtectedRoute';
-
-import SavedMovies from '../SavedMovies/SavedMovies';
 
 import mainApi from '../../utils/MainApi';
 
@@ -40,19 +39,19 @@ function App() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (localStorage.getItem('jwt')) {
+  if (localStorage.getItem('jwt')) {
       const token = localStorage.getItem('jwt');
       mainApi.getUserInfo(token)
         .then((res) => {
-          setCurrentUser(res.data);
           setIsLoggedIn(true);
           navigate('/movies', { replace: true });
+          setCurrentUser(res.data);
         })
         .catch(err => {
-          console.error(`Проблема c загрузкой информации пользователя, ${err}`);
+          console.error(`Проблема c загрузкой информации пользователя`);
         });
     }
-  }, []);
+  }, [isLoggedIn]);
 
   React.useEffect(() => {
     switch (location.pathname) {
@@ -101,8 +100,8 @@ function App() {
           .then((res) => {
             setSignUpErrorMessage('');
             navigate('/movies', { replace: true });
-            setCurrentUser(res.data);
             setIsLoggedIn(true);
+            setCurrentUser(res.data);
           })
           .catch((err) => {
             console.log(err);
@@ -140,8 +139,8 @@ function App() {
         setIsRegisterSuccess(true);
         setTimeout(() => {
           setIsRegisterSuccess(false);
-          navigate('/signin', { replace: true });
-        }, 2000);
+          handleSignin({ password, email });
+        }, 1500);
       })
       .catch((err) => {
         setIsRegisterSuccess(false);
@@ -212,7 +211,6 @@ function App() {
           {isFooterShown && <Footer />}
 
           {isNavPopupOpen && <NavPopup onClose={closeNavPopup} />}
-
 
         </div>
       </div>

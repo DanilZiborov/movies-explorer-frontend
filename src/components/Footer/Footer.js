@@ -12,7 +12,6 @@ function Footer() {
         </ul>
         <p className="footer__copyright">©{new Date().getFullYear()}</p>
       </div>
-
     </footer>
   )
 }

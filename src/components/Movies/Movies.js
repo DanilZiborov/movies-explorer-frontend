@@ -26,8 +26,6 @@ function Movies() {
   const [messageText, setMessageText] = React.useState('');
   const [isPreloaderShown, setIsPreloaderShown] = React.useState(false);
 
-  // const [searchErrorMessage, setSearchErrorMessage] = React.useState('');
-
   React.useEffect(
     () => {
       if (localStorage.getItem('movies')) {
@@ -35,6 +33,7 @@ function Movies() {
         setIsCheckboxChecked(JSON.parse(localStorage.getItem('isShort')));
         setSearchQuery(localStorage.getItem('query'));
       }
+      // else setMessageText('Нужно ввести название фильма');
     }
     , []);
 
@@ -51,13 +50,10 @@ function Movies() {
 
   React.useEffect(() => {
     window.addEventListener('resize', checkWindowWidth);
-
     checkWindowWidth();
-
     return () => {
       window.removeEventListener('resize', checkWindowWidth);
     }
-
   }, []);
 
   React.useEffect(
@@ -69,10 +65,8 @@ function Movies() {
     }, [movies, isCheckboxChecked, searchQuery, initialMovies]);
 
   function searchMovies() {
-
     if (movies.length === 0) {
-      if (searchQuery === '')
-      {
+      if (searchQuery === '') {
         setMessageText('Нужно ввести название фильма');
         return;
       }
@@ -96,7 +90,6 @@ function Movies() {
   }
 
   function filterMovies() {
-
     const filter = new MoviesFilter({ movies, savedMovies, isCheckboxChecked, searchQuery, initialMovies });
     filter.filterByCheckbox();
     filter.filterBySearchQuery();
@@ -184,7 +177,6 @@ function Movies() {
   }
 
   function handleDeleteMovie(movie) {
-
     const targetMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id);
     const token = localStorage.getItem('jwt');
     mainApi.deleteMovie(targetMovie._id, token)
@@ -194,10 +186,7 @@ function Movies() {
           .then((res) => { setSavedMovies(res.data) });
       })
       .catch((err) => { console.log(err) });
-
   }
-
-
 
   return (
     <section className="movies">
@@ -207,7 +196,7 @@ function Movies() {
         searchQuery={searchQuery}
         onQueryChange={onQueryChange}
         onSubmit={searchMovies}
-        />
+      />
 
       {isPreloaderShown && <Preloader />}
 
