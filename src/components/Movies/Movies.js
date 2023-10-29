@@ -26,6 +26,8 @@ function Movies() {
   const [messageText, setMessageText] = React.useState('');
   const [isPreloaderShown, setIsPreloaderShown] = React.useState(false);
 
+  // const [searchErrorMessage, setSearchErrorMessage] = React.useState('');
+
   React.useEffect(
     () => {
       if (localStorage.getItem('movies')) {
@@ -67,7 +69,14 @@ function Movies() {
     }, [movies, isCheckboxChecked, searchQuery, initialMovies]);
 
   function searchMovies() {
+
     if (movies.length === 0) {
+      if (searchQuery === '')
+      {
+        setMessageText('Нужно ввести название фильма');
+        return;
+      }
+
       setIsPreloaderShown(true);
       moviesApi.getMovies()
         .then((res) => {
@@ -197,7 +206,8 @@ function Movies() {
         isCheckboxChecked={isCheckboxChecked}
         searchQuery={searchQuery}
         onQueryChange={onQueryChange}
-        onSubmit={searchMovies} />
+        onSubmit={searchMovies}
+        />
 
       {isPreloaderShown && <Preloader />}
 

@@ -2,49 +2,37 @@ import React from "react";
 
 import { Link} from "react-router-dom";
 
+import { useFormWithValidation } from "../../utils/useFormValidation";
 
-function Login({ data, children, onSubmit, onChange=()=>{}, isRegisterSuccess}) {
 
-  const [formValue, setFormValue] = React.useState({ email: '', password: '' });
+function Login({onSubmit, errorMessage}) {
 
-  function handleChange(e) {
-    onChange(e);
-    const { name, value } = e.target;
-
-    setFormValue({
-      ...formValue,
-      [name]: value
-    });
-
-  }
+  const { values, errors, isInputValid, isValid, handleChange } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit(formValue);
+    onSubmit(values);
   }
-
 
   return (
     <section className="login">
       <div className="login__wrapper">
         <Link to="/" className="logo logo_place_login"/>
-        <h2 className="login__title">{data.title}</h2>
-        <form className="user-form" action="#" onSubmit={handleSubmit} noValidate>
-          {children}
+        <h2 className="login__title">Рады видеть!</h2>
+        <form className="user-form" action="#" noValidate onSubmit={handleSubmit}>
           <div className="user-form__row">
             <label htmlFor="email" className="user-form__label">E-mail</label>
-            <input className="user-form__input" type="email" name="email" id="email" onChange={handleChange} placeholder="Введите email" required></input>
-            <p className="user-form__error-message user-form__error-message_place_input">Здесь будут ошибки валидатора</p>
+            <input className={isInputValid.email === undefined || isInputValid.email ? "user-form__input" : "user-form__input user-form__input_invalid"} type="email" name="email" id="email" onChange={handleChange} value={values.email ? values.email : ''} placeholder="Введите email" required></input>
+            <p className="user-form__error-message user-form__error-message_place_input">{errors.email}</p>
           </div>
           <div className="user-form__row">
             <label className="user-form__label" htmlFor="password">Пароль</label>
-            <input className="user-form__input" type="password" name="password" id="password" onChange={handleChange} placeholder="Введите пароль" minLength={8} maxLength={30} required></input>
-            <p className="user-form__error-message user-form__error-message_place_input">Здесь будут ошибки валидатора</p>
+            <input className={isInputValid.password === undefined || isInputValid.password ? "user-form__input" : "user-form__input user-form__input_invalid" } type="password" name="password" id="password" onChange={handleChange} value={values.password ? values.password : ''} placeholder="Введите пароль" minLength={8} maxLength={30} required></input>
+            <p className="user-form__error-message user-form__error-message_place_input">{errors.password}</p>
           </div>
-            <p className="user-form__error-message user-form__error-message_place_submit user-form__error-message_success user-form__error-message_transparent" id="server-error"></p>
-            <p className = {isRegisterSuccess ? "user-form__success-message user-form__success-message_visible" : "user-form__success-message"}>Вы успешно зарегистрировались</p>
-            <button className="user-form__submit-button" type="submit">{data.buttonText}</button>
-            <p className="user-form__button-subtitle">{data.buttonSubtitle} <Link className="user-form__button-subtitle-link" to={data.buttonSubtitleLink}>{data.buttonSubtitleLinkText}</Link></p>
+            {errorMessage === '' ? null : <p className="user-form__error-message user-form__error-message_place_submit">{errorMessage}</p>}
+            <button className="user-form__submit-button" type="submit" disabled={!isValid}>Войти</button>
+            <p className="user-form__button-subtitle">Ещё не зарегистрированы? <Link className="user-form__button-subtitle-link" to='/signup'>Регистрация</Link></p>
         </form>
       </div>
 

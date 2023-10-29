@@ -103,13 +103,20 @@
   background-color: inherit;
 }
 
+
 .user-form__input:focus {
   border: none;
   outline: none;
   border-bottom: 1px solid #3456F3;
 }
 
-.user-form__input:invalid {
+.user-form__input_invalid:focus {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #EE3465;
+}
+
+.user-form__input_invalid {
   border: none;
   outline: none;
   border-bottom: 1px solid #EE3465;
@@ -160,9 +167,19 @@
   transition: all .3s;
 }
 
+.user-form__submit-button:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+}
+
 .user-form__submit-button:hover {
   opacity: .8;
 }
+
+.user-form__submit-button:disabled:hover {
+  opacity: 1;
+}
+
 
 @media (min-width: 768px) {
   .user-form__submit-button {

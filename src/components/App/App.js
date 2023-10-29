@@ -12,7 +12,6 @@ import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
 import ProtectedRouteElement from '../../utils/ProtectedRoute';
 
-import { signinPageData, signupPageData } from '../../utils/constants';
 import SavedMovies from '../SavedMovies/SavedMovies';
 
 import mainApi from '../../utils/MainApi';
@@ -29,6 +28,11 @@ function App() {
   const [isFooterShown, setIsFooterShown] = React.useState(true);
 
   const [isRegisterSuccess, setIsRegisterSuccess] = React.useState(false);
+  const [isUpdateUserSuccess, setIsUpdateUserSuccess] = React.useState(false);
+
+  const [signUpErrorMessage, setSignUpErrorMessage] = React.useState('');
+  const [signInErrorMessage, setSignInErrorMessage] = React.useState('');
+  const [updateUserErrorMessage, setUpdateUserErrorMessage] = React.useState('');
 
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
 
@@ -86,38 +90,75 @@ function App() {
     navigate('/', { replace: true });
   }
 
-  function handleSignin({password, email}) {
+  function handleSignin({ password, email }) {
     mainApi.authorize(password, email)
-    .then((res) => {
-      if (res.token) {
-        console.log(res);
-        localStorage.setItem('jwt', res.token);
-      }
-      const token = localStorage.getItem('jwt', res.token);
-      mainApi.getUserInfo(token)
-        .then((res) => {
-          navigate('/movies', { replace: true });
-          setCurrentUser(res.data);
-          setIsLoggedIn(true);
-        })
-    })
-    .catch((err) => {
-      console.error(`${err} не удалось выполнить вход`);
-    })
+      .then((res) => {
+        if (res.token) {
+          localStorage.setItem('jwt', res.token);
+        }
+        const token = localStorage.getItem('jwt', res.token);
+        mainApi.getUserInfo(token)
+          .then((res) => {
+            setSignUpErrorMessage('');
+            navigate('/movies', { replace: true });
+            setCurrentUser(res.data);
+            setIsLoggedIn(true);
+          })
+          .catch((err) => {
+            console.log(err);
+            switch (err.status) {
+              case 401:
+                setSignInErrorMessage('При авторизации произошла ошибка. Токен не передан или передан не в том формате.')
+                break;
+                default:
+                setSignInErrorMessage(`Ошибка со статусом ${err.status}`)
+            }
+          })
+      })
+      .catch((err) => {
+        console.log(err);
+        switch (err.status) {
+          case 401:
+            setSignInErrorMessage('Вы ввели неправильный логин или пароль.')
+            break;
+          case 404:
+            setSignInErrorMessage('Страница по указанному маршруту не найдена')
+            break;
+          case 500:
+            setSignInErrorMessage('При авторизации на сервере произошла ошибка')
+            break;
+          default:
+            setSignInErrorMessage(`Ошибка со статусом ${err.status}`)
+        }
+      })
   }
 
-  function handleSignUp({password, email, name}) {
+  function handleSignUp({ password, email, name }) {
     mainApi.register(password, email, name)
       .then((res) => {
+        setSignUpErrorMessage('');
         setIsRegisterSuccess(true);
         setTimeout(() => {
           setIsRegisterSuccess(false);
           navigate('/signin', { replace: true });
-        }, 1500);
+        }, 2000);
       })
       .catch((err) => {
         setIsRegisterSuccess(false);
-        console.error(err);
+        console.log(err);
+        switch (err.status) {
+          case 409:
+            setSignUpErrorMessage('Пользователь с таким email уже существует.')
+            break;
+          case 404:
+            setSignUpErrorMessage('Страница по указанному маршруту не найдена')
+            break;
+          case 500:
+            setSignUpErrorMessage('При регистрации пользователя на сервере произошла ошибка')
+            break;
+          default:
+            setSignUpErrorMessage(`Ошибка со статусом ${err.status}`)
+        }
       })
   }
 
@@ -125,37 +166,56 @@ function App() {
     const token = localStorage.getItem('jwt');
     mainApi.editUserInfo(userInfo, token)
       .then((res) => {
+        setUpdateUserErrorMessage('');
+        setIsUpdateUserSuccess(true);
+        setTimeout(() => {
+          setIsUpdateUserSuccess(false);
+        }, 2000);
         setCurrentUser(res.data);
       })
       .catch(err => {
-        console.error(`Проблема c редактированием информации пользователя, ${err}`);
+        console.log(err);
+        switch (err.status) {
+          case 409:
+            setUpdateUserErrorMessage('Пользователь с таким email уже существует.')
+            break;
+          case 404:
+            setUpdateUserErrorMessage('Страница по указанному маршруту не найдена')
+            break;
+          case 500:
+            setUpdateUserErrorMessage('При обновлении профиля на сервере произошла ошибка')
+            break;
+          default:
+            setUpdateUserErrorMessage(`Ошибка со статусом ${err.status}`)
+        }
+
       })
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <div className='page'>
-      <div className='page__wrapper'>
+      <div className='page'>
+        <div className='page__wrapper'>
 
-        {isHeaderShown && <Header isLoggedIn={isLoggedIn} onNavMenuClick={openNavPopup} />}
-        <main>
-          <Routes>
-            <Route path='/' element={<Main />}></Route>
-            <Route path='/profile' element={<ProtectedRouteElement element={Profile} isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUpdateUser={handleUpdateUser}/>} />
-            <Route path='/movies' element={<ProtectedRouteElement element={Movies} isLoggedIn={isLoggedIn} />}/>
-            <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} isLoggedIn={isLoggedIn} />}/>
-            <Route path='/signin' element={<Login data={signinPageData} onSubmit={handleSignin}/>}></Route>
-            <Route path='/signup' element={<Register data={signupPageData} onSubmit={handleSignUp} isRegisterSuccess={isRegisterSuccess}/>}></Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        {isFooterShown && <Footer />}
+          {isHeaderShown && <Header isLoggedIn={isLoggedIn} onNavMenuClick={openNavPopup} />}
+          <main>
+            <Routes>
+              <Route path='/' element={<Main />}></Route>
+              <Route path='/profile' element={<ProtectedRouteElement element={Profile} isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUpdateUser={handleUpdateUser} errorMessage = {updateUserErrorMessage} isUpdateUserSuccess={isUpdateUserSuccess} />} />
+              <Route path='/movies' element={<ProtectedRouteElement element={Movies} isLoggedIn={isLoggedIn} />} />
+              <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} isLoggedIn={isLoggedIn} />} />
+              <Route path='/signin' element={<Login onSubmit={handleSignin} errorMessage={signInErrorMessage} />}></Route>
+              <Route path='/signup' element={<Register onSubmit={handleSignUp} isRegisterSuccess={isRegisterSuccess} errorMessage={signUpErrorMessage} />}></Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          {isFooterShown && <Footer />}
 
-        {isNavPopupOpen && <NavPopup onClose={closeNavPopup} />}
+          {isNavPopupOpen && <NavPopup onClose={closeNavPopup} />}
 
 
+        </div>
       </div>
-    </div>
     </CurrentUserContext.Provider>
 
   );
