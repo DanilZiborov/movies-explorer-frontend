@@ -171,7 +171,7 @@ function Movies() {
 
     mainApi.saveMovie(movieData, token)
       .then((res) => {
-        setSavedMovies([res.data, ...savedMovies]);
+        setSavedMovies([...savedMovies, res.data]);
       })
       .catch((err) => { console.log(err) });
   }

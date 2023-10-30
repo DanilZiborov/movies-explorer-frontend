@@ -41,19 +41,19 @@ function App() {
 
   React.useEffect(() => {
 
-  if (!isLoggedIn) {
+  if (localStorage.getItem('jwt')) {
       const token = localStorage.getItem('jwt');
       mainApi.getUserInfo(token)
         .then((res) => {
           setIsLoggedIn(true);
           setCurrentUser(res.data);
-          if(location.pathname === '/' || location.pathname === '/signin' || location.pathname === '/signup')navigate('/movies');
+          navigate('/movies');
         })
         .catch(err => {
           console.error(`Проблема c загрузкой информации пользователя`);
         });
     }
-  }, [location.pathname]);
+  }, []);
 
   React.useEffect(() => {
     switch (location.pathname) {

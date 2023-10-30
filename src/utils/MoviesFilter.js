@@ -1,5 +1,5 @@
 class MoviesFilter {
-  constructor({movies, isCheckboxChecked, searchQuery, initialMovies, savedMovies}) {
+  constructor({ movies, isCheckboxChecked, searchQuery, initialMovies, savedMovies }) {
     this.movies = movies;
     this._savedMovies = savedMovies;
 
@@ -23,19 +23,19 @@ class MoviesFilter {
   }
 
   filterByInitialQuantity() {
-    this.movies = this.movies.filter((movie, index )=> {
+    this.movies = this.movies.filter((movie, index) => {
       return index < (this._initialMovies);
     })
   }
 
   markSavedMovies() {
-    if(this._savedMovies.length === 0)
-    return;
-
     this.movies.forEach((movie) => {
-      if(this._savedMovies.some(savedMovie => savedMovie.movieId === movie.id))
-      movie.isSaved = true;
-      else movie.isSaved = false;
+      if (this._savedMovies.some(savedMovie => savedMovie.movieId === movie.id)) {
+        movie.isSaved = true;
+      }
+      else {
+        movie.isSaved = false;
+      }
     })
   }
 
