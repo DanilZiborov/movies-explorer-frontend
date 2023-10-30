@@ -3,7 +3,7 @@ import React from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../utils/useFormValidation";
 
-function Profile({ onSignOut, onUpdateUser, isUpdateSuccess, isUpdateUserSuccess, errorMessage }) {
+function Profile({ onSignOut, onUpdateUser, isUpdateUserSuccess, errorMessage, isFormBlocked }) {
 
   const currentUser = React.useContext(CurrentUserContext);
   const profileFormRef = React.useRef(null);
@@ -39,6 +39,7 @@ function Profile({ onSignOut, onUpdateUser, isUpdateSuccess, isUpdateUserSuccess
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsSubmitButtonEnabled(false);
     disableEditorMode();
     onUpdateUser(values);
   }
@@ -72,6 +73,8 @@ function Profile({ onSignOut, onUpdateUser, isUpdateSuccess, isUpdateUserSuccess
               type="email"
               name="email"
               id="email"
+              pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+              title="Неверный формат email"
               readOnly={isEditorModeActive ? false : true}
               required
               value={values.email ? values.email : ''}
@@ -84,7 +87,7 @@ function Profile({ onSignOut, onUpdateUser, isUpdateSuccess, isUpdateUserSuccess
         {errorMessage === '' ? null : <p className="profile-form__error-message profile-form__error-message_place_submit">{errorMessage}</p>}
         {!isEditorModeActive && <button className="profile-form__edit-button" type="button" onClick={enableEditorMode}>Редактировать</button>}
         {!isEditorModeActive && <button className="profile-form__logout-button" type="button" onClick={onSignOut}>Выйти из аккаунта</button>}
-        {isEditorModeActive && <button className="profile-form__submit-button" type="submit" disabled={!isSubmitButtonEnabled} >Сохранить</button>}
+        {isEditorModeActive && <button className="profile-form__submit-button" type="submit" disabled={!isValid || isFormBlocked ? true : false} >Сохранить</button>}
       </form>
     </section>
   )

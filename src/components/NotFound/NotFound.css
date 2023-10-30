@@ -43,6 +43,7 @@
   color: #3456F3;
   text-align: center;
   font-size: 12px;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {

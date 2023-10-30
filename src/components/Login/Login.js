@@ -2,7 +2,7 @@ import React from "react";
 import { Link} from "react-router-dom";
 import { useFormWithValidation } from "../../utils/useFormValidation";
 
-function Login({onSubmit, errorMessage}) {
+function Login({onSubmit, errorMessage, isFormBlocked}) {
   const { values, errors, isInputValid, isValid, handleChange } = useFormWithValidation();
 
   function handleSubmit(e) {
@@ -25,6 +25,8 @@ function Login({onSubmit, errorMessage}) {
               id="email"
               value={values.email ? values.email : ''}
               placeholder="Введите email"
+              pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+              title="Неверный формат email"
               required
               onChange={handleChange}>
             </input>
@@ -47,7 +49,7 @@ function Login({onSubmit, errorMessage}) {
           <p className="user-form__error-message user-form__error-message_place_input">{errors.password}</p>
           </div>
             {errorMessage === '' ? null : <p className="user-form__error-message user-form__error-message_place_submit">{errorMessage}</p>}
-            <button className="user-form__submit-button" type="submit" disabled={!isValid}>Войти</button>
+            <button className="user-form__submit-button" type="submit" disabled={!isValid || isFormBlocked ? true : false} >Войти</button>
             <p className="user-form__button-subtitle">Ещё не зарегистрированы? <Link className="user-form__button-subtitle-link" to='/signup'>Регистрация</Link></p>
         </form>
       </div>

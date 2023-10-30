@@ -2,12 +2,12 @@ import React from "react";
 import { Link} from "react-router-dom";
 import { useFormWithValidation } from "../../utils/useFormValidation";
 
-function Register({ onSubmit, isRegisterSuccess, errorMessage }) {
+function Register({ onSubmit, isRegisterSuccess, errorMessage, isFormBlocked }) {
   const { values, errors, isInputValid, isValid, handleChange } = useFormWithValidation();
 
     function handleSubmit(e) {
-    e.preventDefault();
-    onSubmit(values);
+      e.preventDefault();
+      onSubmit(values);
   }
 
   return (
@@ -40,6 +40,8 @@ function Register({ onSubmit, isRegisterSuccess, errorMessage }) {
               id="email"
               value={values.email ? values.email : ''}
               placeholder="Введите email"
+              pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+              title="Неверный формат email"
               required
               onChange={handleChange}>
             </input>
@@ -62,7 +64,7 @@ function Register({ onSubmit, isRegisterSuccess, errorMessage }) {
           </div>
           <p className={isRegisterSuccess ? "user-form__success-message user-form__success-message_visible" : "user-form__success-message"}>Вы успешно зарегистрировались</p>
           {errorMessage === '' ? null : <p className="user-form__error-message user-form__error-message_place_submit">{errorMessage}</p>}
-          <button className="user-form__submit-button" type="submit" disabled={!isValid} >Зарегистрироваться</button>
+          <button className="user-form__submit-button" type="submit" disabled={!isValid || isFormBlocked ? true : false} >Зарегистрироваться</button>
           <p className="user-form__button-subtitle">Уже зарегистрированы? <Link className="user-form__button-subtitle-link" to='/signin'>Войти</Link></p>
         </form>
       </div>

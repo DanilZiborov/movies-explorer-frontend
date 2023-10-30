@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 
 function MoviesCard({ movie, onSaveMovie, onDeleteMovie }) {
   const location = useLocation();
-  const [isMovieSaved, setIsMovieSaved] = React.useState(false);
   const [isSavedMoviesPath, setIsSavedMoviesPath] = React.useState(false);
 
   React.useEffect(() => {
@@ -13,18 +12,12 @@ function MoviesCard({ movie, onSaveMovie, onDeleteMovie }) {
     setIsSavedMoviesPath(false);
   }, [location.pathname]);
 
-  React.useEffect(() => {
-    movie.isSaved ? setIsMovieSaved(true) : setIsMovieSaved(false);
-  }, [movie]);
-
   function handleSaveMovie() {
     onSaveMovie(movie);
-    setIsMovieSaved(!isMovieSaved);
   }
 
   function handleDeleteMovie() {
     onDeleteMovie(movie);
-    setIsMovieSaved(!isMovieSaved);
   }
 
   function countDuration(mins) {
@@ -45,7 +38,7 @@ function MoviesCard({ movie, onSaveMovie, onDeleteMovie }) {
       <div className="movie-card__wrapper">
         <p className="movie-card__title">{movie.nameRU}</p>
         { isSavedMoviesPath && <button className="movie-card__delete-button" onClick={handleDeleteMovie}></button>}
-        {!isSavedMoviesPath && <button className={isMovieSaved ? 'movie-card__save-button movie-card__save-button_active' : 'movie-card__save-button'} onClick={isMovieSaved ? handleDeleteMovie : handleSaveMovie}></button>}
+        {!isSavedMoviesPath && <button className={movie.isSaved ? 'movie-card__save-button movie-card__save-button_active' : 'movie-card__save-button'} onClick={movie.isSaved ? handleDeleteMovie : handleSaveMovie}></button>}
       </div>
       <p className="movie-card__duration">{countDuration(movie.duration)}</p>
 

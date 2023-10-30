@@ -11,7 +11,7 @@ import { moviesCardlistMessages } from "../../utils/constants";
 
 function SavedMovies() {
   const [savedMovies, setSavedMovies] = React.useState([]);
-  const [filteredMovies, setFilteredMovies] =React.useState([]);
+  const [filteredMovies, setFilteredMovies] = React.useState([]);
 
   const [isCheckboxChecked, setIsCheckboxChecked] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -58,17 +58,14 @@ function SavedMovies() {
 
   function onQueryChange(e) {
     setSearchQuery(e.target.value);
-    localStorage.setItem('query', e.target.value);
   }
 
   function onCheckboxChange() {
     if (isCheckboxChecked) {
       setIsCheckboxChecked(false);
-      localStorage.setItem('isShort', false);
     }
     else {
       setIsCheckboxChecked(true);
-      localStorage.setItem('isShort', true);
     }
   }
 
@@ -78,8 +75,7 @@ function SavedMovies() {
     mainApi.deleteMovie(movie._id, token)
       .then((res) => {
         console.log(res);
-        mainApi.getSavedMovies(token)
-          .then((res) => { setSavedMovies(res.data) });
+        setSavedMovies((prevState) => prevState.filter(m => m._id !== movie._id ));
       })
       .catch((err) => { console.log(err) });
 

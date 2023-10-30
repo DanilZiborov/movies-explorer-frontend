@@ -58,11 +58,12 @@ function Movies() {
 
   React.useEffect(
     () => {
+      console.log(savedMovies);
       if (initialMovies === 0 || movies.length === 0)
         return;
 
       filterMovies();
-    }, [movies, isCheckboxChecked, searchQuery, initialMovies]);
+    }, [movies, isCheckboxChecked, searchQuery, initialMovies, savedMovies]);
 
   function searchMovies() {
     if (movies.length === 0) {
@@ -153,6 +154,7 @@ function Movies() {
   }
 
   function handleSaveMovie(movie) {
+    const token = localStorage.getItem('jwt');
     const movieData = {
       country: movie.country,
       director: movie.director,
@@ -166,12 +168,10 @@ function Movies() {
       nameRU: movie.nameRU,
       nameEN: movie.nameEN,
     }
-    const token = localStorage.getItem('jwt');
 
     mainApi.saveMovie(movieData, token)
       .then((res) => {
-        mainApi.getSavedMovies(token)
-          .then((res) => { setSavedMovies(res.data) });
+        setSavedMovies([res.data, ...savedMovies]);
       })
       .catch((err) => { console.log(err) });
   }
@@ -180,10 +180,8 @@ function Movies() {
     const targetMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id);
     const token = localStorage.getItem('jwt');
     mainApi.deleteMovie(targetMovie._id, token)
-      .then((res) => {
-        console.log(res);
-        mainApi.getSavedMovies(token)
-          .then((res) => { setSavedMovies(res.data) });
+      .then(() => {
+        setSavedMovies((prevState) => prevState.filter(m => m.movieId !== movie.id));
       })
       .catch((err) => { console.log(err) });
   }

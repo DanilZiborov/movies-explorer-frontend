@@ -33,10 +33,9 @@ class MoviesFilter {
     return;
 
     this.movies.forEach((movie) => {
-      this._savedMovies.forEach((savedMovie) => {
-        if(savedMovie.movieId === movie.id)
-        movie.isSaved = true;
-      })
+      if(this._savedMovies.some(savedMovie => savedMovie.movieId === movie.id))
+      movie.isSaved = true;
+      else movie.isSaved = false;
     })
   }
 

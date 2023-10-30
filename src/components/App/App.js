@@ -32,6 +32,7 @@ function App() {
   const [signUpErrorMessage, setSignUpErrorMessage] = React.useState('');
   const [signInErrorMessage, setSignInErrorMessage] = React.useState('');
   const [updateUserErrorMessage, setUpdateUserErrorMessage] = React.useState('');
+  const [isFormBlocked, setIsFormBlocked] = React.useState(false);
 
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
 
@@ -39,19 +40,20 @@ function App() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-  if (localStorage.getItem('jwt')) {
+
+  if (!isLoggedIn) {
       const token = localStorage.getItem('jwt');
       mainApi.getUserInfo(token)
         .then((res) => {
           setIsLoggedIn(true);
-          navigate('/movies', { replace: true });
           setCurrentUser(res.data);
+          if(location.pathname === '/' || location.pathname === '/signin' || location.pathname === '/signup')navigate('/movies');
         })
         .catch(err => {
           console.error(`Проблема c загрузкой информации пользователя`);
         });
     }
-  }, [isLoggedIn]);
+  }, [location.pathname]);
 
   React.useEffect(() => {
     switch (location.pathname) {
@@ -85,11 +87,15 @@ function App() {
 
   function handleSignOut() {
     setIsLoggedIn(false);
-    localStorage.removeItem('jwt');
+    setCurrentUser({ name: '', email: '' });
+    setUpdateUserErrorMessage('');
+
+    localStorage.clear();
     navigate('/', { replace: true });
   }
 
   function handleSignin({ password, email }) {
+    setIsFormBlocked(true);
     mainApi.authorize(password, email)
       .then((res) => {
         if (res.token) {
@@ -130,9 +136,13 @@ function App() {
             setSignInErrorMessage(`Ошибка со статусом ${err.status}`)
         }
       })
+      .finally(() => {
+        setIsFormBlocked(false);
+      })
   }
 
   function handleSignUp({ password, email, name }) {
+    setIsFormBlocked(true);
     mainApi.register(password, email, name)
       .then((res) => {
         setSignUpErrorMessage('');
@@ -159,10 +169,13 @@ function App() {
             setSignUpErrorMessage(`Ошибка со статусом ${err.status}`)
         }
       })
+      .finally(() => {setIsFormBlocked(false)});
+
   }
 
   function handleUpdateUser(userInfo) {
     const token = localStorage.getItem('jwt');
+    setIsFormBlocked(true);
     mainApi.editUserInfo(userInfo, token)
       .then((res) => {
         setUpdateUserErrorMessage('');
@@ -189,6 +202,9 @@ function App() {
         }
 
       })
+      .finally(() => {
+        setIsFormBlocked(false);
+      })
   }
 
   return (
@@ -202,9 +218,9 @@ function App() {
               <Route path='/' element={<Main />}></Route>
               <Route path='/profile' element={<ProtectedRouteElement element={Profile} isLoggedIn={isLoggedIn} onSignOut={handleSignOut} onUpdateUser={handleUpdateUser} errorMessage = {updateUserErrorMessage} isUpdateUserSuccess={isUpdateUserSuccess} />} />
               <Route path='/movies' element={<ProtectedRouteElement element={Movies} isLoggedIn={isLoggedIn} />} />
-              <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} isLoggedIn={isLoggedIn} />} />
-              <Route path='/signin' element={<Login onSubmit={handleSignin} errorMessage={signInErrorMessage} />}></Route>
-              <Route path='/signup' element={<Register onSubmit={handleSignUp} isRegisterSuccess={isRegisterSuccess} errorMessage={signUpErrorMessage} />}></Route>
+              <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} isLoggedIn={isLoggedIn} isFormBlocked={isFormBlocked} />} />
+              <Route path='/signin' element={<Login onSubmit={handleSignin} errorMessage={signInErrorMessage} isFormBlocked={isFormBlocked} />}></Route>
+              <Route path='/signup' element={<Register onSubmit={handleSignUp} isRegisterSuccess={isRegisterSuccess} errorMessage={signUpErrorMessage} isFormBlocked={isFormBlocked} />}></Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

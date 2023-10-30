@@ -6,8 +6,8 @@ function MoviesCardlist({ renderedMovies, onAddButtonClick, isAddButtonShown, me
   return (
     <div className="movies__cardlist">
       <div className="movies__cardlist-grid">
-        {renderedMovies.map((movie, index) => (
-          (<MoviesCard movie={movie} key={index} onSaveMovie={onSaveMovie} onDeleteMovie={onDeleteMovie} />)
+        {renderedMovies.map((movie) => (
+          (<MoviesCard movie={movie} key={movie.id ? movie.id : movie.movieId} onSaveMovie={onSaveMovie} onDeleteMovie={onDeleteMovie} />)
         ))}
       </div>
       <p className="movies__cardlist-result-message">{messageText}</p>
