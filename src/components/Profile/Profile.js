@@ -1,64 +1,94 @@
 import React from "react";
 
-function Profile({onSignout}) {
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useFormWithValidation } from "../../utils/useFormValidation";
 
-  const username = 'Даня';
+function Profile({ onSignOut, onUpdateUser, isUpdateUserSuccess, errorMessage, isFormBlocked }) {
 
+  const currentUser = React.useContext(CurrentUserContext);
   const profileFormRef = React.useRef(null);
 
-  const [formValue, setFormValue] = React.useState({ email: '', username: '' });
+  const { values, errors, isInputValid, isValid, handleChange, setValue } = useFormWithValidation();
   const [isEditorModeActive, setIsEditorModeActive] = React.useState(false);
+  const [isSubmitButtonEnabled, setIsSubmitButtonEnabled] = React.useState(false);
+
+  React.useEffect(() => {
+    setValue('name', currentUser.name);
+    setValue('email', currentUser.email);
+  }, [currentUser, setValue]);
+
+  React.useEffect(() => {
+    checkSubmitButtonEnabled();
+  }, [values]);
 
   function enableEditorMode() {
     setIsEditorModeActive(true);
-    profileFormRef.current.username.focus();
-    console.log(profileFormRef.current.username);
+    profileFormRef.current.name.focus();
   }
 
   function disableEditorMode() {
     setIsEditorModeActive(false);
   }
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-
-    setFormValue({
-      ...formValue,
-      [name]: value
-    });
-
+  function checkSubmitButtonEnabled() {
+    if (isValid && (values.name !== currentUser.name || values.email !== currentUser.email)) {
+      setIsSubmitButtonEnabled(true);
+    }
+    else setIsSubmitButtonEnabled(false);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsSubmitButtonEnabled(false);
     disableEditorMode();
+    onUpdateUser(values);
   }
 
   return (
     <section className="profile">
-      <h2 className="profile__title">Привет, {username}!</h2>
-      <form className="profile-form" action="#" onSubmit={handleSubmit} ref={profileFormRef} noValidate>
+      <h2 className="profile__title">Привет, {currentUser.name}!</h2>
+      <form className="profile-form" action="#" ref={profileFormRef} noValidate onSubmit={handleSubmit}>
         <div className="profile-form__row">
           <div className="profile-form__input-wrapper">
-            <label htmlFor="username" className="profile-form__label">Имя</label>
-            <input className="profile-form__input" type="text" name="username" id="username" onChange={handleChange} readOnly={isEditorModeActive ? false : true} defaultValue='Даня' placeholder="Введите имя" maxLength={30} required></input>
+            <label htmlFor="name" className="profile-form__label">Имя</label>
+            <input
+              className={isInputValid.name === undefined || isInputValid.name ? "profile-form__input" : "profile-form__input profile-form__input_invalid"}
+              type="text"
+              name="name"
+              id="name"
+              readOnly={isEditorModeActive ? false : true}
+              maxLength={30}
+              minLength={2}
+              required
+              value={values.name ? values.name : ''}
+              onChange={handleChange}>
+            </input>
           </div>
-          <p className="profile-form__error-message profile-form__error-message_place_input">Здесь будут ошибки валидатора</p>
+          <p className="profile-form__error-message profile-form__error-message_place_input">{errors.name}</p>
         </div>
         <div className="profile-form__row">
           <div className="profile-form__input-wrapper">
             <label htmlFor="email" className="profile-form__label">E-mail</label>
-            <input className="profile-form__input" type="email" name="email" id="email" onChange={handleChange} readOnly={isEditorModeActive ? false : true} defaultValue='danil@yandex.com' placeholder="Введите email" required></input>
+            <input className={isInputValid.email === undefined || isInputValid.email ? "profile-form__input" : "profile-form__input profile-form__input_invalid"}
+              type="email"
+              name="email"
+              id="email"
+              pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+              title="Неверный формат email"
+              readOnly={isEditorModeActive ? false : true}
+              required
+              value={values.email ? values.email : ''}
+              onChange={handleChange}>
+            </input>
           </div>
-          <p className="profile-form__error-message profile-form__error-message_place_input">Здесь будут ошибки валидатора</p>
+          <p className="profile-form__error-message profile-form__error-message_place_input">{errors.email}</p>
         </div>
-        <p className="profile-form__error-message profile-form__error-message_place_submit" id="server-error">Здесь будут ошибки сервера</p>
+        <p className={isUpdateUserSuccess ? "profile-form__success-message profile-form__success-message_visible" : "profile-form__success-message"}>Данные успешно изменены</p>
+        {errorMessage === '' ? null : <p className="profile-form__error-message profile-form__error-message_place_submit">{errorMessage}</p>}
         {!isEditorModeActive && <button className="profile-form__edit-button" type="button" onClick={enableEditorMode}>Редактировать</button>}
-        {!isEditorModeActive && <button className="profile-form__logout-button" type="button" onClick={onSignout}>Выйти из аккаунта</button>}
-        {isEditorModeActive && <button className="profile-form__submit-button" type="submit" onClick={handleSubmit}>Сохранить</button>}
-
+        {!isEditorModeActive && <button className="profile-form__logout-button" type="button" onClick={onSignOut}>Выйти из аккаунта</button>}
+        {isEditorModeActive && <button className="profile-form__submit-button" type="submit" disabled={!isValid || isFormBlocked ? true : false} >Сохранить</button>}
       </form>
-
     </section>
   )
 }

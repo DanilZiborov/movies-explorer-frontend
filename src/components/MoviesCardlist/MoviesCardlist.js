@@ -1,17 +1,17 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardlist({ movies }) {
-  const location = useLocation();
+function MoviesCardlist({ renderedMovies, onAddButtonClick, isAddButtonShown, messageText, onSaveMovie, onDeleteMovie }) {
+
   return (
     <div className="movies__cardlist">
       <div className="movies__cardlist-grid">
-        {movies.map((movie, index) => (
-          (<MoviesCard movie={movie} key={index} />)
+        {renderedMovies.map((movie) => (
+          (<MoviesCard movie={movie} key={movie.id ? movie.id : movie.movieId} onSaveMovie={onSaveMovie} onDeleteMovie={onDeleteMovie} />)
         ))}
       </div>
-      {location.pathname === '/movies' && <button className="movies__cardlist-button">Ещё</button>}
+      <p className="movies__cardlist-result-message">{messageText}</p>
+      {isAddButtonShown && <button className="movies__cardlist-button" onClick={onAddButtonClick}>Ещё</button>}
     </div>
   );
 }
